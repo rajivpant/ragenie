@@ -44,6 +44,9 @@ class Conversation(Base, TimestampMixin):
     # Summary of the conversation (optional, for quick preview)
     summary: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
 
+    # LangGraph workflow state persistence
+    state: Mapped[Optional[dict]] = mapped_column(JSON, nullable=True)
+
     # Relationships
     user: Mapped["User"] = relationship("User", back_populates="conversations")
     profile: Mapped[Optional["Profile"]] = relationship("Profile", back_populates="conversations")

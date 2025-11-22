@@ -147,6 +147,8 @@ services:
       MINIO_BUCKET: ragenie-documents
       AUTH_SERVICE_URL: http://auth-service:8000
       RAGBOT_DATA_PATH: /data/ragbot-data
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-text-embedding-3-small}
     ports:
       - "8003:8000"
     depends_on:
@@ -180,14 +182,22 @@ services:
     environment:
       DATABASE_URL: postgresql://ragenie:${POSTGRES_PASSWORD:-ragenie_dev_password}@postgres:5432/ragenie
       REDIS_URL: redis://redis:6379/3
+      QDRANT_HOST: qdrant
+      QDRANT_PORT: 6333
+      QDRANT_COLLECTION: ragenie_documents
       AUTH_SERVICE_URL: http://auth-service:8000
       DOCUMENT_SERVICE_URL: http://document-service:8000
+      LLM_GATEWAY_URL: http://llm-gateway-service:8000
+      RAG_TOP_K: ${RAG_TOP_K:-5}
+      RAG_SIMILARITY_THRESHOLD: ${RAG_SIMILARITY_THRESHOLD:-0.7}
     ports:
       - "8004:8000"
     depends_on:
       postgres:
         condition: service_healthy
       redis:
+        condition: service_healthy
+      qdrant:
         condition: service_healthy
       auth-service:
         condition: service_started

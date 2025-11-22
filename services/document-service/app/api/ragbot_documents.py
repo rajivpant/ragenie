@@ -6,6 +6,8 @@ from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func, text
 from datetime import datetime
+from langchain_openai import OpenAIEmbeddings
+import os
 
 from app.db.database import get_db
 from app.core.config import settings
@@ -14,7 +16,9 @@ from app.schemas.documents import (
     RagbotDocumentList,
     EmbeddingStatusResponse,
     EmbedTriggerRequest,
-    EmbedTriggerResponse
+    EmbedTriggerResponse,
+    EmbeddingGenerateRequest,
+    EmbeddingGenerateResponse
 )
 
 router = APIRouter()
@@ -231,4 +235,37 @@ async def trigger_reembedding(
         return EmbedTriggerResponse(
             message="All documents queued for re-embedding",
             files_queued=len(doc_ids)
+        )
+
+
+@router.post("/embed/generate", response_model=EmbeddingGenerateResponse)
+async def generate_embedding(
+    request: EmbeddingGenerateRequest
+):
+    """
+    Generate embedding for a text query.
+
+    This endpoint is used by other services (like conversation-service)
+    to generate embeddings for search queries.
+    """
+    try:
+        # Initialize OpenAI embeddings
+        embeddings = OpenAIEmbeddings(
+            model=os.getenv("EMBEDDING_MODEL", "text-embedding-3-small"),
+            openai_api_key=os.getenv("OPENAI_API_KEY")
+        )
+
+        # Generate embedding
+        embedding_vector = await embeddings.aembed_query(request.text)
+
+        return EmbeddingGenerateResponse(
+            embedding=embedding_vector,
+            model=embeddings.model,
+            dimensions=len(embedding_vector)
+        )
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error generating embedding: {str(e)}"
         )

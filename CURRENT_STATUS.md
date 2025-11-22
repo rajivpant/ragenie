@@ -1,12 +1,13 @@
 # RaGenie - Current Development Status
-## Last Updated: 2025-11-22
+
+## Last Updated: 2025-11-22 (Session 2)
 
 > **IMPORTANT**: This file contains the current state of RaGenie development.
 > If this chat context is lost, READ THIS FILE FIRST to understand where we are.
 
 ---
 
-## 🎯 Current Status: ~60% Complete - RAG Pipeline Foundation Ready
+## 🎯 Current Status: ~75% Complete - Backend Services Ready
 
 ### What Works Right Now
 
@@ -39,9 +40,9 @@
 ragenie/
 ├── services/
 │   ├── auth-service/          ✅ 100% Complete (JWT auth, user management)
-│   ├── user-service/          🔨 50% (structure exists, needs API endpoints)
-│   ├── document-service/      📋 0% (needs full implementation)
-│   ├── conversation-service/  📋 0% (needs full implementation)
+│   ├── user-service/          ✅ 100% Complete (profile CRUD operations)
+│   ├── document-service/      ✅ 100% Complete (ragbot-data API, embedding triggers)
+│   ├── conversation-service/  📋 0% (needs implementation)
 │   ├── llm-gateway-service/   ✅ 100% Complete (LiteLLM integration)
 │   ├── file-watcher/          ✅ 100% Complete (monitors ragbot-data)
 │   └── embedding-worker/      ✅ 100% Complete (processes embeddings)

@@ -50,3 +50,15 @@ class EmbedTriggerResponse(BaseModel):
     """Response from embed trigger."""
     message: str
     files_queued: int
+
+
+class EmbeddingGenerateRequest(BaseModel):
+    """Request to generate embedding for text."""
+    text: str
+
+
+class EmbeddingGenerateResponse(BaseModel):
+    """Response with generated embedding."""
+    embedding: list[float]
+    model: str
+    dimensions: int
