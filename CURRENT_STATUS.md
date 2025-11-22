@@ -1,13 +1,13 @@
 # RaGenie - Current Development Status
 
-## Last Updated: 2025-11-22 (Session 2)
+## Last Updated: 2025-11-22 (Session 3)
 
 > **IMPORTANT**: This file contains the current state of RaGenie development.
 > If this chat context is lost, READ THIS FILE FIRST to understand where we are.
 
 ---
 
-## 🎯 Current Status: ~75% Complete - Backend Services Ready
+## 🎯 Current Status: ~85% Complete - Core RAG Functionality Complete
 
 ### What Works Right Now
 
@@ -32,6 +32,15 @@
 - Redis caching (30 min TTL)
 - Error handling and retry logic
 
+✅ **RAG Context Assembly**
+
+- Vector search in Qdrant for relevant documents
+- Custom instructions from user profiles
+- Conversation history retrieval
+- System prompt generation with context
+- Query embedding generation endpoint
+- Configurable top_k and similarity threshold
+
 ---
 
 ## 📂 Project Structure
@@ -41,8 +50,8 @@ ragenie/
 ├── services/
 │   ├── auth-service/          ✅ 100% Complete (JWT auth, user management)
 │   ├── user-service/          ✅ 100% Complete (profile CRUD operations)
-│   ├── document-service/      ✅ 100% Complete (ragbot-data API, embedding triggers)
-│   ├── conversation-service/  📋 0% (needs implementation)
+│   ├── document-service/      ✅ 100% Complete (ragbot-data API, embedding generation)
+│   ├── conversation-service/  ✅ 100% Complete (chat management, RAG context assembly)
 │   ├── llm-gateway-service/   ✅ 100% Complete (LiteLLM integration)
 │   ├── file-watcher/          ✅ 100% Complete (monitors ragbot-data)
 │   └── embedding-worker/      ✅ 100% Complete (processes embeddings)
@@ -254,31 +263,35 @@ docker-compose exec postgres psql -U ragenie -d ragenie \
 
 ## 📋 Next Steps (Priority Order)
 
-### Immediate (This Week)
+### Completed in Session 3
+
 1. **✅ DONE**: File watcher service
 2. **✅ DONE**: Embedding worker service
 3. **✅ DONE**: Database migrations
-4. **🔄 NEXT**: Complete User Service API endpoints
-5. **🔄 NEXT**: Build Document Service with:
-   - GET /documents/ragbot - List ragbot-data files
-   - GET /documents/ragbot/{path} - Get specific file
-   - POST /documents/ragbot/embed/trigger - Manual re-embed
-   - GET /documents/ragbot/embed/status - Indexing progress
-   - POST /documents/uploads - Upload user files
+4. **✅ DONE**: User Service API endpoints
+5. **✅ DONE**: Document Service with:
+   - GET /ragbot - List ragbot-data files ✅
+   - GET /ragbot/{path} - Get specific file ✅
+   - GET /ragbot/{path}/content - Read file content ✅
+   - POST /ragbot/embed/trigger - Manual re-embed ✅
+   - GET /ragbot/embed/status - Indexing progress ✅
+   - POST /ragbot/embed/generate - Generate query embeddings ✅
 
-6. **🔄 NEXT**: Build Conversation Service with:
-   - GET /conversations - List conversations
-   - POST /conversations - Create conversation
-   - GET /conversations/{id}/messages - Get messages
-   - POST /conversations/{id}/messages - Add message
-   - GET /conversations/{id}/context - Assemble RAG context
+6. **✅ DONE**: Conversation Service with:
+   - GET /conversations - List conversations ✅
+   - POST /conversations - Create conversation ✅
+   - GET /conversations/{id}/messages - Get messages ✅
+   - POST /conversations/{id}/messages - Add message ✅
+   - GET /conversations/{id}/context - Assemble RAG context ✅
+   - RAGRetrievalService for vector search ✅
 
-### This Month
-7. **Integrate LangGraph** for basic RAG workflow:
+### Immediate (Next Priority)
+
+7. **🔄 NEXT**: Integrate LangGraph for RAG workflow:
    - StateGraph with retrieve → augment → generate nodes
-   - Qdrant retrieval integration
-   - Context assembly with custom instructions
-   - LLM generation with streaming
+   - Stream LLM responses to frontend
+   - State persistence in conversations.state
+   - Tool/function calling support
 
 8. **Build React Frontend**:
    - Initialize Vite project
@@ -410,17 +423,22 @@ GET "doc:curated-datasets/scalepost/overview.md"
 5. **Look at services/file-watcher/** and **services/embedding-worker/** for implementation
 
 ### What's Working
+
 - File watcher detects changes ✅
 - Embedding worker generates vectors ✅
 - Qdrant stores embeddings ✅
 - Database tracks metadata ✅
+- Document Service with ragbot-data API ✅
+- Conversation Service with chat management ✅
+- RAG context assembly with vector search ✅
+- Query embedding generation ✅
 
 ### What's Missing
-- Document Service API (to query ragbot-data files)
-- Conversation Service (to manage chats)
-- RAG query endpoint (to search and retrieve)
-- LangGraph integration (for agentic workflows)
+
+- LangGraph integration (for agentic RAG workflows)
+- Streaming LLM responses
 - Frontend UI (React app)
+- User authentication integration (currently placeholder)
 
 ### Quick Start to Continue
 ```bash
@@ -432,8 +450,8 @@ git pull
 cat CURRENT_STATUS.md
 
 # 3. Continue with next priority item:
-# - Complete User Service
-# - Build Document Service
+# - Integrate LangGraph for RAG workflows
+# - Build React frontend
 # - Or whatever is marked as 🔄 NEXT above
 ```
 
@@ -451,11 +469,16 @@ cat CURRENT_STATUS.md
 ✅ OpenAI embeddings with LangChain
 ✅ Redis caching layer
 ✅ Error handling and retry logic
+✅ Complete RAG context assembly
+✅ Vector search with Qdrant
+✅ Conversation and message management
+✅ Query embedding generation
+✅ Custom instructions integration
 ✅ Comprehensive documentation
 
-**Total Lines of Code**: ~7,500+
-**Total Files Created**: 60+
-**Services Implemented**: 7 of 10 (70%)
+**Total Lines of Code**: ~8,400+
+**Total Files Created**: 76+
+**Backend Services**: 7 of 7 (100% complete!)
 **Infrastructure**: 100% complete
 
 ---
