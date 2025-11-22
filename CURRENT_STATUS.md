@@ -1,13 +1,13 @@
 # RaGenie - Current Development Status
 
-## Last Updated: 2025-11-22 (Session 3)
+## Last Updated: 2025-11-22 (Session 3 - LangGraph Integration)
 
 > **IMPORTANT**: This file contains the current state of RaGenie development.
 > If this chat context is lost, READ THIS FILE FIRST to understand where we are.
 
 ---
 
-## 🎯 Current Status: ~85% Complete - Core RAG Functionality Complete
+## 🎯 Current Status: ~90% Complete - Agentic RAG Workflows Implemented
 
 ### What Works Right Now
 
@@ -40,6 +40,24 @@
 - System prompt generation with context
 - Query embedding generation endpoint
 - Configurable top_k and similarity threshold
+
+✅ **LangGraph Agentic Workflows**
+
+- Three-node StateGraph: retrieve → augment → generate
+- State persistence with MemorySaver checkpointer
+- Async workflow execution
+- LLM generation via LLM Gateway Service
+- Message persistence (user + assistant)
+- Conversation state management
+- Error handling per node
+- Performance tracking
+
+✅ **Streaming Support**
+
+- Server-Sent Events (SSE) streaming
+- Real-time workflow progress updates
+- Event-driven architecture (retrieve, augment, generate, done, error)
+- Non-blocking async streaming
 
 ---
 
@@ -285,15 +303,17 @@ docker-compose exec postgres psql -U ragenie -d ragenie \
    - GET /conversations/{id}/context - Assemble RAG context ✅
    - RAGRetrievalService for vector search ✅
 
+7. **✅ DONE**: LangGraph Integration with:
+   - StateGraph with retrieve → augment → generate nodes ✅
+   - POST /conversations/{id}/chat - RAG workflow endpoint ✅
+   - POST /conversations/{id}/chat/stream - Streaming SSE ✅
+   - State persistence in conversations.state ✅
+   - Message persistence (user + assistant) ✅
+   - Performance tracking and error handling ✅
+
 ### Immediate (Next Priority)
 
-7. **🔄 NEXT**: Integrate LangGraph for RAG workflow:
-   - StateGraph with retrieve → augment → generate nodes
-   - Stream LLM responses to frontend
-   - State persistence in conversations.state
-   - Tool/function calling support
-
-8. **Build React Frontend**:
+1. **🔄 NEXT**: Build React Frontend:
    - Initialize Vite project
    - Authentication UI
    - Chat interface
@@ -432,13 +452,16 @@ GET "doc:curated-datasets/scalepost/overview.md"
 - Conversation Service with chat management ✅
 - RAG context assembly with vector search ✅
 - Query embedding generation ✅
+- LangGraph agentic workflows ✅
+- Streaming SSE responses ✅
+- Complete end-to-end RAG pipeline ✅
 
 ### What's Missing
 
-- LangGraph integration (for agentic RAG workflows)
-- Streaming LLM responses
 - Frontend UI (React app)
 - User authentication integration (currently placeholder)
+- Production deployment configuration
+- Advanced features: Tool calling, multi-turn reasoning
 
 ### Quick Start to Continue
 ```bash
@@ -450,8 +473,8 @@ git pull
 cat CURRENT_STATUS.md
 
 # 3. Continue with next priority item:
-# - Integrate LangGraph for RAG workflows
 # - Build React frontend
+# - Production deployment
 # - Or whatever is marked as 🔄 NEXT above
 ```
 
@@ -474,11 +497,16 @@ cat CURRENT_STATUS.md
 ✅ Conversation and message management
 ✅ Query embedding generation
 ✅ Custom instructions integration
+✅ LangGraph agentic workflows
+✅ Streaming SSE support
+✅ State management and persistence
+✅ End-to-end RAG pipeline
 ✅ Comprehensive documentation
 
-**Total Lines of Code**: ~8,400+
-**Total Files Created**: 76+
+**Total Lines of Code**: ~9,000+
+**Total Files Created**: 80+
 **Backend Services**: 7 of 7 (100% complete!)
+**LangGraph Integration**: ✅ Complete
 **Infrastructure**: 100% complete
 
 ---
