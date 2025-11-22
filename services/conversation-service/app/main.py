@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 
 from app.core.config import settings
 from app.api.conversations import router as conversations_router
+from app.api.chat import router as chat_router
 
 
 @asynccontextmanager
@@ -38,6 +39,7 @@ app.add_middleware(
 
 # Include routers
 app.include_router(conversations_router, prefix="/conversations", tags=["conversations"])
+app.include_router(chat_router, tags=["chat"])
 
 
 @app.get("/health")
@@ -60,6 +62,8 @@ async def root():
         "endpoints": {
             "conversations": "/conversations",
             "messages": "/conversations/{id}/messages",
-            "rag_context": "/conversations/{id}/context"
+            "rag_context": "/conversations/{id}/context",
+            "chat": "/conversations/{id}/chat",
+            "chat_stream": "/conversations/{id}/chat/stream"
         }
     }

@@ -10,3 +10,5 @@ python-multipart==0.0.6
 httpx==0.25.2
 redis==5.0.1
 qdrant-client==1.7.0
+langgraph==0.1.0
+langchain-core==0.2.0
