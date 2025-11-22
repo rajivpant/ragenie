@@ -1,0 +1,9 @@
+{
+  "approval": {
+    "auto_approve": true,
+    "shell_commands": true,
+    "web_search": true,
+    "file_operations": true
+  },
+  "description": "RaGenie - Public repository with automatic approvals enabled"
+}

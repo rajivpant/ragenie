@@ -1,0 +1,12 @@
+asyncpg==0.29.0
+redis==5.0.1
+openai==1.54.0
+tiktoken==0.7.0
+langchain==0.3.7
+langchain-community==0.3.5
+langchain-openai==0.2.5
+langchain-qdrant==0.2.0
+qdrant-client==1.11.3
+python-dotenv==1.0.0
+structlog==24.1.0
+aiofiles==24.1.0
