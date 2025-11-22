@@ -1,0 +1,283 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: ragenie-postgres
+    environment:
+      POSTGRES_DB: ragenie
+      POSTGRES_USER: ragenie
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ragenie_dev_password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ragenie"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ragenie-network
+
+  # Redis Cache and Message Queue
+  redis:
+    image: redis:7-alpine
+    container_name: ragenie-redis
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ragenie-network
+
+  # MinIO Object Storage (S3-compatible)
+  minio:
+    image: minio/minio:latest
+    container_name: ragenie-minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin123}
+    ports:
+      - "9000:9000"  # API
+      - "9001:9001"  # Console
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - ragenie-network
+
+  # Auth Service
+  auth-service:
+    build:
+      context: ./services/auth-service
+      dockerfile: Dockerfile
+    container_name: ragenie-auth-service
+    environment:
+      DATABASE_URL: postgresql://ragenie:${POSTGRES_PASSWORD:-ragenie_dev_password}@postgres:5432/ragenie
+      REDIS_URL: redis://redis:6379/0
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-dev_secret_key_change_in_production}
+      JWT_ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 30
+      REFRESH_TOKEN_EXPIRE_DAYS: 7
+    ports:
+      - "8001:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./services/auth-service:/app
+    networks:
+      - ragenie-network
+    restart: unless-stopped
+
+  # User Service
+  user-service:
+    build:
+      context: ./services/user-service
+      dockerfile: Dockerfile
+    container_name: ragenie-user-service
+    environment:
+      DATABASE_URL: postgresql://ragenie:${POSTGRES_PASSWORD:-ragenie_dev_password}@postgres:5432/ragenie
+      REDIS_URL: redis://redis:6379/1
+      AUTH_SERVICE_URL: http://auth-service:8000
+    ports:
+      - "8002:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      auth-service:
+        condition: service_started
+    volumes:
+      - ./services/user-service:/app
+    networks:
+      - ragenie-network
+    restart: unless-stopped
+
+  # Document Service
+  document-service:
+    build:
+      context: ./services/document-service
+      dockerfile: Dockerfile
+    container_name: ragenie-document-service
+    environment:
+      DATABASE_URL: postgresql://ragenie:${POSTGRES_PASSWORD:-ragenie_dev_password}@postgres:5432/ragenie
+      REDIS_URL: redis://redis:6379/2
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin123}
+      MINIO_BUCKET: ragenie-documents
+      AUTH_SERVICE_URL: http://auth-service:8000
+    ports:
+      - "8003:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      auth-service:
+        condition: service_started
+    volumes:
+      - ./services/document-service:/app
+    networks:
+      - ragenie-network
+    restart: unless-stopped
+
+  # Conversation Service
+  conversation-service:
+    build:
+      context: ./services/conversation-service
+      dockerfile: Dockerfile
+    container_name: ragenie-conversation-service
+    environment:
+      DATABASE_URL: postgresql://ragenie:${POSTGRES_PASSWORD:-ragenie_dev_password}@postgres:5432/ragenie
+      REDIS_URL: redis://redis:6379/3
+      AUTH_SERVICE_URL: http://auth-service:8000
+      DOCUMENT_SERVICE_URL: http://document-service:8000
+    ports:
+      - "8004:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      auth-service:
+        condition: service_started
+      document-service:
+        condition: service_started
+    volumes:
+      - ./services/conversation-service:/app
+    networks:
+      - ragenie-network
+    restart: unless-stopped
+
+  # LLM Gateway Service
+  llm-gateway-service:
+    build:
+      context: ./services/llm-gateway-service
+      dockerfile: Dockerfile
+    container_name: ragenie-llm-gateway-service
+    environment:
+      DATABASE_URL: postgresql://ragenie:${POSTGRES_PASSWORD:-ragenie_dev_password}@postgres:5432/ragenie
+      REDIS_URL: redis://redis:6379/4
+      AUTH_SERVICE_URL: http://auth-service:8000
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+    ports:
+      - "8005:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      auth-service:
+        condition: service_started
+    volumes:
+      - ./services/llm-gateway-service:/app
+    networks:
+      - ragenie-network
+    restart: unless-stopped
+
+  # Nginx API Gateway
+  nginx:
+    image: nginx:alpine
+    container_name: ragenie-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./infrastructure/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./infrastructure/nginx/conf.d:/etc/nginx/conf.d:ro
+    depends_on:
+      - auth-service
+      - user-service
+      - document-service
+      - conversation-service
+      - llm-gateway-service
+      - frontend
+    networks:
+      - ragenie-network
+    restart: unless-stopped
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    container_name: ragenie-frontend
+    environment:
+      VITE_API_BASE_URL: http://localhost/api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - ragenie-network
+    restart: unless-stopped
+
+  # Prometheus (Monitoring)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: ragenie-prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./infrastructure/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    networks:
+      - ragenie-network
+    restart: unless-stopped
+
+  # Grafana (Dashboards)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: ragenie-grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-admin}
+      GF_INSTALL_PLUGINS: grafana-clock-panel
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./infrastructure/monitoring/grafana:/etc/grafana/provisioning:ro
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    networks:
+      - ragenie-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  ragenie-network:
+    driver: bridge

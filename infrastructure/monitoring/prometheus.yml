@@ -1,0 +1,59 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'ragenie'
+    environment: 'development'
+
+# Scrape configurations
+scrape_configs:
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Auth Service
+  - job_name: 'auth-service'
+    static_configs:
+      - targets: ['auth-service:8000']
+    metrics_path: '/metrics'
+
+  # User Service
+  - job_name: 'user-service'
+    static_configs:
+      - targets: ['user-service:8000']
+    metrics_path: '/metrics'
+
+  # Document Service
+  - job_name: 'document-service'
+    static_configs:
+      - targets: ['document-service:8000']
+    metrics_path: '/metrics'
+
+  # Conversation Service
+  - job_name: 'conversation-service'
+    static_configs:
+      - targets: ['conversation-service:8000']
+    metrics_path: '/metrics'
+
+  # LLM Gateway Service
+  - job_name: 'llm-gateway-service'
+    static_configs:
+      - targets: ['llm-gateway-service:8000']
+    metrics_path: '/metrics'
+
+  # PostgreSQL Exporter (optional, add if needed)
+  # - job_name: 'postgres'
+  #   static_configs:
+  #     - targets: ['postgres-exporter:9187']
+
+  # Redis Exporter (optional, add if needed)
+  # - job_name: 'redis'
+  #   static_configs:
+  #     - targets: ['redis-exporter:9121']
+
+  # Nginx
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['nginx:80']
+    metrics_path: '/metrics'
