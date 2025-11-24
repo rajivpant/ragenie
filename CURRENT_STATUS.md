@@ -1,6 +1,6 @@
 # RaGenie - Current Development Status
 
-## Last Updated: 2025-11-22 (Session 3 - LangGraph Integration)
+## Last Updated: 2025-11-24 (Session 4 - Product Resources Architecture)
 
 > **IMPORTANT**: This file contains the current state of RaGenie development.
 > If this chat context is lost, READ THIS FILE FIRST to understand where we are.
@@ -61,17 +61,83 @@
 
 ---
 
+## 📦 Product Resources vs User Data Architecture
+
+**NEW in Session 4**: Clear separation between product resources and user data.
+
+### Product Resources (Public, Ships with RaGenie)
+- **Location**: `./resources/` (part of ragenie repository)
+- **Container Path**: `/data/resources/` (read-only mount)
+- **Purpose**: Guides, workflows, templates that ship with RaGenie
+- **Indexing**: NOT indexed by file-watcher (static reference material)
+- **Distribution**: Open-source, publicly accessible on GitHub
+- **Standalone Usage**: Can be used in other projects without RaGenie
+
+**Structure**:
+```
+resources/
+├── README.md              ✅ Created (architecture documentation)
+├── guides/                ✅ Created
+│   ├── README.md          ✅ Created
+│   └── writing/           ✅ Created
+│       └── Guide_to_Identifying_AI-Generated_Content_v2.md  ✅ Added
+├── workflows/             ✅ Created (empty, for future LangGraph workflows)
+└── templates/             ✅ Created (empty, for future configuration templates)
+```
+
+### User Data (Private, User-Specific)
+- **Location**: User's filesystem, mounted via `RAGBOT_DATA_PATH`
+- **Container Path**: `/data/user-data/` (read-only mount)
+- **Purpose**: User's personal documents, notes, private content
+- **Indexing**: YES - monitored by file-watcher and embedded for RAG
+- **Distribution**: NOT shipped with RaGenie (private data)
+- **Example**: `/Users/rajivpant/ragbot-data`
+
+### Volume Mounts Configuration
+
+**Updated docker-compose.yml**:
+```yaml
+services:
+  document-service:
+    volumes:
+      # User's PRIVATE data
+      - type: bind
+        source: ${RAGBOT_DATA_PATH:-/Users/rajivpant/ragbot-data}
+        target: /data/user-data
+        read_only: true
+      # Product RESOURCES
+      - ./resources:/data/resources:ro
+      - ./services/document-service:/app
+```
+
+Applied to services:
+- ✅ document-service (user data + resources)
+- ✅ conversation-service (resources only)
+- ✅ file-watcher (user data only)
+- ✅ embedding-worker (user data only)
+
+---
+
 ## 📂 Project Structure
 
 ```
 ragenie/
+├── resources/                 ✅ NEW (Session 4)
+│   ├── README.md              ✅ Product resources documentation
+│   ├── guides/                ✅ User guides
+│   │   ├── README.md          ✅ Guides documentation
+│   │   └── writing/           ✅ Writing-related guides
+│   │       └── Guide_to_Identifying_AI-Generated_Content_v2.md  ✅
+│   ├── workflows/             ✅ Created (empty, for future use)
+│   └── templates/             ✅ Created (empty, for future use)
+│
 ├── services/
 │   ├── auth-service/          ✅ 100% Complete (JWT auth, user management)
 │   ├── user-service/          ✅ 100% Complete (profile CRUD operations)
 │   ├── document-service/      ✅ 100% Complete (ragbot-data API, embedding generation)
 │   ├── conversation-service/  ✅ 100% Complete (chat management, RAG context assembly)
 │   ├── llm-gateway-service/   ✅ 100% Complete (LiteLLM integration)
-│   ├── file-watcher/          ✅ 100% Complete (monitors ragbot-data)
+│   ├── file-watcher/          ✅ 100% Complete (monitors user-data)
 │   └── embedding-worker/      ✅ 100% Complete (processes embeddings)
 │
 ├── migrations/
@@ -89,13 +155,16 @@ ragenie/
 │
 ├── frontend/                  📋 Not started
 │
-├── docker-compose.yml         ✅ Updated with Qdrant, file-watcher, embedding-worker
-└── .env.example              ✅ Updated with embedding config
+├── docker-compose.yml         ✅ Updated with dual volume mounts (Session 4)
+└── .env.example              ✅ Updated with data directory documentation (Session 4)
 
 External:
-├── /Users/rajivpant/ragbot-data/          (SOURCE OF TRUTH)
+├── /Users/rajivpant/ragbot-data/          (USER DATA - SOURCE OF TRUTH)
 │   ├── .claudeignore                      ✅ Created (protects sensitive data)
 │   └── RAGENIE_INTEGRATION.md             ✅ Created (600+ line architecture doc)
+│
+└── /Users/rajivpant/projects/my-projects/ragbot/resources/  ✅ NEW (Session 4)
+    └── (Same structure as ragenie/resources/ for v1 compatibility)
 ```
 
 ---
@@ -141,15 +210,16 @@ External:
 **Location**: `services/file-watcher/`
 **Status**: ✅ Complete and functional
 **What it does**:
-- Monitors `/data/ragbot-data` using polling observer (5s interval)
+- Monitors `/data/user-data` using polling observer (5s interval)
 - Detects .md and .txt file changes
 - Computes SHA-256 hashes
 - Inserts/updates ragbot_documents table
 - Queues files for embedding with priority 10 (high)
 - Scans all existing files on startup
+- **DOES NOT monitor /data/resources/** (product resources are static)
 
 **Configuration**:
-- `RAGBOT_DATA_PATH`: /data/ragbot-data
+- `RAGBOT_DATA_PATH`: /data/user-data (updated in Session 4)
 - `POLLING_INTERVAL`: 5 seconds
 - `INCLUDE_EXTENSIONS`: .md, .txt
 - `EXCLUDE_PATTERNS`: .git, __pycache__, .DS_Store
@@ -160,15 +230,17 @@ External:
 **What it does**:
 - Polls embedding_queue table (5s interval)
 - Processes up to 10 jobs concurrently
-- Reads files from ragbot-data (read-only)
+- Reads files from user-data (read-only)
 - Chunks documents (RecursiveCharacterTextSplitter)
 - Generates embeddings (OpenAI text-embedding-3-small)
 - Stores vectors in Qdrant
 - Updates database metadata
 - Caches content in Redis
 - Retries failed jobs up to 3 times
+- **ONLY processes user data** (does not embed product resources)
 
 **Configuration**:
+- `RAGBOT_DATA_PATH`: /data/user-data (updated in Session 4)
 - `EMBEDDING_MODEL`: text-embedding-3-small
 - `EMBEDDING_DIMENSIONS`: 1536
 - `CHUNK_SIZE`: 512 tokens
@@ -248,7 +320,8 @@ Stream response to frontend
 ### Prerequisites
 1. Copy `.env.example` to `.env`
 2. Add OpenAI API key: `OPENAI_API_KEY=sk-...`
-3. Ensure ragbot-data exists at `/Users/rajivpant/ragbot-data`
+3. Ensure user data directory exists (default: `/Users/rajivpant/ragbot-data`)
+4. Product resources are in `./resources/` (ships with RaGenie)
 
 ### Start Services
 ```bash
@@ -310,6 +383,19 @@ docker-compose exec postgres psql -U ragenie -d ragenie \
    - State persistence in conversations.state ✅
    - Message persistence (user + assistant) ✅
    - Performance tracking and error handling ✅
+
+### Completed in Session 4
+
+8. **✅ DONE**: Product Resources Architecture:
+   - Created resources/ folder in ragenie ✅
+   - Created resources/ folder in ragbot (v1 compatibility) ✅
+   - Folder structure: guides/writing/, workflows/, templates/ ✅
+   - Added Guide_to_Identifying_AI-Generated_Content_v2.md ✅
+   - Created comprehensive README files ✅
+   - Updated docker-compose.yml with dual volume mounts ✅
+   - Updated .env.example with architecture documentation ✅
+   - Updated CURRENT_STATUS.md ✅
+   - Clear separation: user data vs product resources ✅
 
 ### Immediate (Next Priority)
 
@@ -513,4 +599,4 @@ cat CURRENT_STATUS.md
 
 *This file is the SOURCE OF TRUTH for current development status.*
 *Update this file whenever significant progress is made.*
-*Last updated by Claude Code session on 2025-11-22*
+*Last updated by Claude Code session on 2025-11-24 (Session 4)*

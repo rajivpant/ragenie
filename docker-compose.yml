@@ -146,7 +146,7 @@ services:
       MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin123}
       MINIO_BUCKET: ragenie-documents
       AUTH_SERVICE_URL: http://auth-service:8000
-      RAGBOT_DATA_PATH: /data/ragbot-data
+      RAGBOT_DATA_PATH: /data/user-data
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       EMBEDDING_MODEL: ${EMBEDDING_MODEL:-text-embedding-3-small}
     ports:
@@ -163,11 +163,13 @@ services:
       auth-service:
         condition: service_started
     volumes:
-      # Read-only mount of ragbot-data
+      # User's PRIVATE data (mounted at runtime)
       - type: bind
         source: ${RAGBOT_DATA_PATH:-/Users/rajivpant/ragbot-data}
-        target: /data/ragbot-data
+        target: /data/user-data
         read_only: true
+      # Product RESOURCES (part of repo)
+      - ./resources:/data/resources:ro
       - ./services/document-service:/app
     networks:
       - ragenie-network
@@ -204,6 +206,8 @@ services:
       document-service:
         condition: service_started
     volumes:
+      # Product RESOURCES (part of repo)
+      - ./resources:/data/resources:ro
       - ./services/conversation-service:/app
     networks:
       - ragenie-network
@@ -245,17 +249,17 @@ services:
     container_name: ragenie-file-watcher
     environment:
       DATABASE_URL: postgresql://ragenie:${POSTGRES_PASSWORD:-ragenie_dev_password}@postgres:5432/ragenie
-      RAGBOT_DATA_PATH: /data/ragbot-data
+      RAGBOT_DATA_PATH: /data/user-data
       POLLING_INTERVAL: ${FILE_WATCHER_POLLING_INTERVAL:-5}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
     depends_on:
       postgres:
         condition: service_healthy
     volumes:
-      # Read-only mount of ragbot-data (source of truth)
+      # User's PRIVATE data (source of truth for file watcher)
       - type: bind
         source: ${RAGBOT_DATA_PATH:-/Users/rajivpant/ragbot-data}
-        target: /data/ragbot-data
+        target: /data/user-data
         read_only: true
       - ./services/file-watcher:/app
     networks:
@@ -273,7 +277,7 @@ services:
       REDIS_URL: redis://redis:6379/5
       QDRANT_HOST: qdrant
       QDRANT_PORT: 6333
-      RAGBOT_DATA_PATH: /data/ragbot-data
+      RAGBOT_DATA_PATH: /data/user-data
       MINIO_ENDPOINT: minio:9000
       MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-minioadmin}
       MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin123}
@@ -292,10 +296,10 @@ services:
       minio:
         condition: service_healthy
     volumes:
-      # Read-only mount of ragbot-data
+      # User's PRIVATE data (for embedding user documents)
       - type: bind
         source: ${RAGBOT_DATA_PATH:-/Users/rajivpant/ragbot-data}
-        target: /data/ragbot-data
+        target: /data/user-data
         read_only: true
       - ./services/embedding-worker:/app
     networks:
