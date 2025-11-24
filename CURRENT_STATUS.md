@@ -80,7 +80,7 @@ resources/
 ├── guides/                ✅ Created
 │   ├── README.md          ✅ Created
 │   └── writing/           ✅ Created
-│       └── Guide_to_Identifying_AI-Generated_Content_v2.md  ✅ Added
+│       └── Guide_to_Identifying_and_Improving_AI-Assisted_Content.md  ✅ Added
 ├── workflows/             ✅ Created (empty, for future LangGraph workflows)
 └── templates/             ✅ Created (empty, for future configuration templates)
 ```
@@ -127,7 +127,7 @@ ragenie/
 │   ├── guides/                ✅ User guides
 │   │   ├── README.md          ✅ Guides documentation
 │   │   └── writing/           ✅ Writing-related guides
-│   │       └── Guide_to_Identifying_AI-Generated_Content_v2.md  ✅
+│   │       └── Guide_to_Identifying_and_Improving_AI-Assisted_Content.md  ✅
 │   ├── workflows/             ✅ Created (empty, for future use)
 │   └── templates/             ✅ Created (empty, for future use)
 │
