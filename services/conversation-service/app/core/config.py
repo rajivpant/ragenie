@@ -35,6 +35,12 @@ class Settings(BaseSettings):
     RAG_TOP_K: int = 5  # Number of top documents to retrieve
     RAG_SIMILARITY_THRESHOLD: float = 0.7  # Minimum similarity score
 
+    # LLM Default Configuration
+    # These can be overridden by profile settings
+    DEFAULT_MODEL: str = "claude-sonnet-4-5-20250929"  # Anthropic Claude Sonnet 4.5
+    DEFAULT_TEMPERATURE: float = 0.7
+    DEFAULT_MAX_TOKENS: int = 2000
+
     # CORS
     CORS_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost"]
 

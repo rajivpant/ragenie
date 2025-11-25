@@ -23,6 +23,11 @@ class RAGState(TypedDict):
     retrieved_documents: List[dict]
     system_prompt: str
 
+    # LLM Configuration (from profile settings or defaults)
+    model: str
+    temperature: float
+    max_tokens: int
+
     # Output
     response: str
     total_tokens: Optional[int]
@@ -187,15 +192,15 @@ class RAGWorkflow:
                 }
             ]
 
-            # Call LLM Gateway Service
+            # Call LLM Gateway Service with configured model settings
             async with httpx.AsyncClient(timeout=60.0) as client:
                 response = await client.post(
                     f"{settings.LLM_GATEWAY_URL}/chat/completions",
                     json={
                         "messages": messages,
-                        "model": "gpt-4",  # Default model
-                        "temperature": 0.7,
-                        "max_tokens": 2000
+                        "model": state["model"],
+                        "temperature": state["temperature"],
+                        "max_tokens": state["max_tokens"]
                     }
                 )
                 response.raise_for_status()
@@ -231,7 +236,10 @@ class RAGWorkflow:
         conversation_id: int,
         profile_id: Optional[int] = None,
         custom_instructions: Optional[str] = None,
-        conversation_history: Optional[List[dict]] = None
+        conversation_history: Optional[List[dict]] = None,
+        model: Optional[str] = None,
+        temperature: Optional[float] = None,
+        max_tokens: Optional[int] = None
     ) -> RAGState:
         """
         Run the RAG workflow.
@@ -242,11 +250,14 @@ class RAGWorkflow:
             profile_id: Optional profile ID
             custom_instructions: Optional custom instructions from profile
             conversation_history: Optional conversation history
+            model: LLM model to use (defaults to settings.DEFAULT_MODEL)
+            temperature: Temperature setting (defaults to settings.DEFAULT_TEMPERATURE)
+            max_tokens: Max tokens for response (defaults to settings.DEFAULT_MAX_TOKENS)
 
         Returns:
             Final state with response
         """
-        # Initialize state
+        # Initialize state with LLM configuration
         initial_state: RAGState = {
             "query": query,
             "conversation_id": conversation_id,
@@ -255,6 +266,9 @@ class RAGWorkflow:
             "conversation_history": conversation_history or [],
             "retrieved_documents": [],
             "system_prompt": "",
+            "model": model or settings.DEFAULT_MODEL,
+            "temperature": temperature if temperature is not None else settings.DEFAULT_TEMPERATURE,
+            "max_tokens": max_tokens or settings.DEFAULT_MAX_TOKENS,
             "response": "",
             "total_tokens": None,
             "cost": None,
@@ -275,14 +289,17 @@ class RAGWorkflow:
         conversation_id: int,
         profile_id: Optional[int] = None,
         custom_instructions: Optional[str] = None,
-        conversation_history: Optional[List[dict]] = None
+        conversation_history: Optional[List[dict]] = None,
+        model: Optional[str] = None,
+        temperature: Optional[float] = None,
+        max_tokens: Optional[int] = None
     ) -> AsyncIterator[dict]:
         """
         Stream the RAG workflow execution.
 
         Yields intermediate states as the workflow progresses.
         """
-        # Initialize state
+        # Initialize state with LLM configuration
         initial_state: RAGState = {
             "query": query,
             "conversation_id": conversation_id,
@@ -291,6 +308,9 @@ class RAGWorkflow:
             "conversation_history": conversation_history or [],
             "retrieved_documents": [],
             "system_prompt": "",
+            "model": model or settings.DEFAULT_MODEL,
+            "temperature": temperature if temperature is not None else settings.DEFAULT_TEMPERATURE,
+            "max_tokens": max_tokens or settings.DEFAULT_MAX_TOKENS,
             "response": "",
             "total_tokens": None,
             "cost": None,

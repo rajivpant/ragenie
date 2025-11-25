@@ -73,8 +73,12 @@ async def chat(
             detail="Conversation not found"
         )
 
-    # Get profile and custom instructions
+    # Get profile settings (custom instructions, model, temperature, max_tokens)
     custom_instructions = None
+    profile_model = None
+    profile_temperature = None
+    profile_max_tokens = None
+
     if conversation.profile_id:
         profile_result = await db.execute(
             select(Profile)
@@ -83,6 +87,9 @@ async def chat(
         profile = profile_result.scalar_one_or_none()
         if profile and profile.settings:
             custom_instructions = profile.settings.get("custom_instructions")
+            profile_model = profile.settings.get("default_model")
+            profile_temperature = profile.settings.get("temperature")
+            profile_max_tokens = profile.settings.get("max_tokens")
 
     # Get conversation history (last 10 messages)
     messages_result = await db.execute(
@@ -102,14 +109,17 @@ async def chat(
         for msg in messages
     ]
 
-    # Run LangGraph workflow
+    # Run LangGraph workflow with profile settings
     workflow = RAGWorkflow()
     final_state = await workflow.run(
         query=request.query,
         conversation_id=conversation_id,
         profile_id=conversation.profile_id,
         custom_instructions=custom_instructions,
-        conversation_history=conversation_history
+        conversation_history=conversation_history,
+        model=profile_model,
+        temperature=profile_temperature,
+        max_tokens=profile_max_tokens
     )
 
     # Save user message
@@ -185,8 +195,12 @@ async def chat_stream(
             detail="Conversation not found"
         )
 
-    # Get profile and custom instructions
+    # Get profile settings (custom instructions, model, temperature, max_tokens)
     custom_instructions = None
+    profile_model = None
+    profile_temperature = None
+    profile_max_tokens = None
+
     if conversation.profile_id:
         profile_result = await db.execute(
             select(Profile)
@@ -195,6 +209,9 @@ async def chat_stream(
         profile = profile_result.scalar_one_or_none()
         if profile and profile.settings:
             custom_instructions = profile.settings.get("custom_instructions")
+            profile_model = profile.settings.get("default_model")
+            profile_temperature = profile.settings.get("temperature")
+            profile_max_tokens = profile.settings.get("max_tokens")
 
     # Get conversation history
     messages_result = await db.execute(
@@ -219,13 +236,16 @@ async def chat_stream(
         final_response = None
 
         try:
-            # Stream workflow execution
+            # Stream workflow execution with profile settings
             async for event in workflow.stream(
                 query=request.query,
                 conversation_id=conversation_id,
                 profile_id=conversation.profile_id,
                 custom_instructions=custom_instructions,
-                conversation_history=conversation_history
+                conversation_history=conversation_history,
+                model=profile_model,
+                temperature=profile_temperature,
+                max_tokens=profile_max_tokens
             ):
                 node_name = event["node"]
                 state = event["state"]
