@@ -401,6 +401,25 @@ docker-compose exec minio mc alias set local http://localhost:9000 minioadmin mi
 docker-compose exec minio mc mb local/ragbot-documents
 ```
 
+## Development Methodology
+
+RaGenie is built using **Synthesis Engineering**—a professional practice that systematically integrates human expertise with AI capabilities to build production-grade software. This approach enabled the transformation from Ragbot's monolithic Streamlit application into RaGenie's scalable microservices architecture while maintaining code quality and architectural coherence.
+
+The methodology emphasizes:
+
+- **Human Architectural Authority:** Engineers define system boundaries, technology choices, and integration patterns before AI-assisted implementation
+- **Systematic Quality Standards:** The same rigorous code review, testing, and security analysis applied regardless of how code is generated
+- **Active System Understanding:** Every component is comprehended deeply enough to debug production issues
+- **Iterative Context Building:** Knowledge compounds across development sessions for increasingly sophisticated implementations
+
+This approach delivered 7 production-ready backend services, comprehensive database migrations, and a modern React frontend—all while ensuring the codebase remains maintainable and well-understood.
+
+Learn more about Synthesis Engineering:
+
+- [The Professional Practice](https://rajiv.com/blog/2025/11/09/synthesis-engineering-the-professional-practice-emerging-in-ai-assisted-development/)
+- [Organizational Framework](https://rajiv.com/blog/2025/11/09/the-synthesis-engineering-framework-how-organizations-build-production-software-with-ai/)
+- [Technical Implementation with Claude Code](https://rajiv.com/blog/2025/11/09/synthesis-engineering-with-claude-code-technical-implementation-and-workflows/)
+
 ## Contributing
 
 1. Fork the repository
