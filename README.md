@@ -403,7 +403,7 @@ docker-compose exec minio mc mb local/ragbot-documents
 
 ## Development Methodology
 
-RaGenie is built using **Synthesis Engineering**—a professional practice that systematically integrates human expertise with AI capabilities to build production-grade software. This approach enabled the transformation from Ragbot's monolithic Streamlit application into RaGenie's scalable microservices architecture while maintaining code quality and architectural coherence.
+RaGenie is built using **Synthesis Engineering** (also known as **Synthesis Coding**)—a professional practice that systematically integrates human expertise with AI capabilities to build production-grade software. This approach enabled the transformation from Ragbot's monolithic Streamlit application into RaGenie's scalable microservices architecture while maintaining code quality and architectural coherence.
 
 The methodology emphasizes:
 
