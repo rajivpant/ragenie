@@ -498,7 +498,7 @@ docker-compose exec redis redis-cli
 KEYS doc:*
 
 # Get cached document
-GET "doc:curated-datasets/scalepost/overview.md"
+GET "doc:curated-datasets/client-c/overview.md"
 ```
 
 ---

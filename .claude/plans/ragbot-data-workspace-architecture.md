@@ -51,14 +51,14 @@ ragbot-data/
     │       │   └── *.md files
     │       └── professional-public/
     │           └── *.md files
-    ├── flatiron/           # Inherits from rajiv
+    ├── employer/           # Inherits from rajiv
     │   ├── workspace.yaml
     │   ├── instructions/
     │   ├── runbooks/
     │   └── datasets/
-    ├── snapshot/           # Inherits from flatiron (chain: snapshot → flatiron → rajiv)
-    ├── mcclatchy/          # Inherits from flatiron
-    ├── scalepost/          # Inherits from rajiv
+    ├── client-b/           # Inherits from employer (chain: client-b → employer → rajiv)
+    ├── client-a/          # Inherits from employer
+    ├── client-c/          # Inherits from rajiv
     └── ragenie/            # Inherits from rajiv
 ```
 
@@ -81,8 +81,8 @@ This model helps organize content by purpose rather than arbitrary categorizatio
 Each workspace has a `workspace.yaml` file:
 
 ```yaml
-# workspaces/flatiron/workspace.yaml
-name: Flatiron Software
+# workspaces/employer/workspace.yaml
+name: My Employer
 inherits_from:
   - rajiv
 ```
@@ -90,11 +90,11 @@ inherits_from:
 ### Inheritance Chain
 
 - `rajiv` — Base workspace (no parent)
-- `flatiron` → `rajiv`
-- `snapshot` → `flatiron` → `rajiv`
-- `mcclatchy` → `flatiron` → `rajiv`
+- `employer` → `rajiv`
+- `client-b` → `employer` → `rajiv`
+- `client-a` → `employer` → `rajiv`
 - `ragenie` → `rajiv`
-- `scalepost` → `rajiv`
+- `client-c` → `rajiv`
 
 When a workspace is selected, content is loaded from:
 1. All parent workspaces (in order)

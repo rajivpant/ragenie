@@ -145,7 +145,7 @@ KEYS doc:*
 # Should show cached file paths
 
 # Get a cached document (replace path with actual file)
-GET "doc:curated-datasets/scalepost/overview.md"
+GET "doc:curated-datasets/client-c/overview.md"
 
 # Exit Redis
 EXIT
