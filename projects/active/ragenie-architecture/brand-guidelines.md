@@ -47,7 +47,7 @@ The capital G emphasizes the "Genie" aspect - RaGenie is your AI genie for agent
 
 RaGenie is an **extension layer** that builds on top of Ragbot:
 
-- **Ragbot** = Core RAG-enabled assistant (CLI + Web UI)
+- **Ragbot** = Core RAG-enabled assistant (CLI + Web UI + API)
 - **RaGenie** = Agentic extension layer (multi-agent workflows, advanced orchestration)
 
 Both products share the same AI Knowledge content and complement each other.

@@ -8,7 +8,7 @@ This is a **PUBLIC** open source repository. Be careful not to include confident
 
 | Repository | Type | Purpose | Location |
 |------------|------|---------|----------|
-| **ragbot** | Public | AI assistant CLI + Web UI | `~/projects/my-projects/ragbot/` |
+| **ragbot** | Public | AI assistant CLI + Web UI + API | `~/projects/my-projects/ragbot/` |
 | **ragenie** | Public | Agentic extension layer for Ragbot | `~/projects/my-projects/ragenie/` |
 | **ai-knowledge-*** | Private | AI Knowledge content repos | `~/projects/my-projects/ai-knowledge/` |
 
@@ -20,7 +20,7 @@ All repositories are in the same VS Code workspace for unified development.
 
 ## Product Relationship
 
-- **Ragbot**: Core RAG-enabled assistant (CLI + Web UI). Actively maintained.
+- **Ragbot**: Core RAG-enabled assistant (CLI + Web UI + API). Actively maintained.
 - **RaGenie**: Agentic extension layer that builds ON TOP of Ragbot. Adds multi-agent workflows, advanced orchestration.
 - Both products share AI Knowledge content (ai-knowledge-* repos).
 - Both products will continue to be actively developed.

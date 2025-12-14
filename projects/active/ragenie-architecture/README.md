@@ -10,12 +10,11 @@ RaGenie is an agentic AI system that builds ON TOP of Ragbot, extending it with 
 
 ## Problem Statement
 
-Ragbot provides excellent RAG-enabled assistant capabilities via CLI and Web UI, but modern AI applications require:
+Ragbot provides excellent RAG-enabled assistant capabilities via CLI, Web UI, and API. RaGenie extends Ragbot with:
 
 - **Agentic capabilities** — Autonomous task execution and tool use
 - **Multi-agent orchestration** — Coordinating multiple AI agents for complex workflows
-- **Mobile-ready architecture** — FastAPI backend supporting mobile apps and voice UI
-- **Scalable infrastructure** — Microservices architecture for production deployment
+- **Advanced workflow automation** — LangGraph-based state machines for complex tasks
 
 ## Solution
 
@@ -114,9 +113,8 @@ Build RaGenie as an **extension layer** on top of Ragbot, not a replacement:
 
 ### Why React/Next.js Frontend for RaGenie?
 
-1. **Mobile-ready** — PWA or React Native sharing code
+1. **Advanced agentic UX** — Multi-agent workflow visualization, real-time updates
 2. **Voice UI ready** — Web Speech API integration
-3. **Advanced agentic UX** — Multi-agent workflow visualization, real-time updates
 
 ## Related Projects
 
