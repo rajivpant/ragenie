@@ -27,7 +27,7 @@
 | Aspect | Ragbot | RaGenie |
 |--------|--------|---------|
 | **Primary Use Case** | RAG-enabled personal assistant | Agentic AI workflows |
-| **Interface** | CLI, Streamlit | Web UI, API, Mobile (future) |
+| **Interface** | CLI, Web UI | Web UI, API, Mobile (future) |
 | **Architecture** | Monolithic Python | Microservices (FastAPI) |
 | **Deployment** | Local-first | Cloud-ready, self-hosted |
 | **Users** | Individual power users | Teams, organizations |

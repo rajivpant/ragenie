@@ -29,7 +29,7 @@ These resources are available at `/data/resources/` in all RaGenie service conta
 Example: A user can reference these resources in their custom instructions:
 ```
 "When helping me identify AI-generated content, refer to the guide in
-/data/resources/guides/writing/Guide_to_Identifying_and_Improving_AI-Assisted_Content.md"
+/data/resources/guides/writing/identifying-ai-assisted-content.md"
 ```
 
 ## Usage Standalone
@@ -73,6 +73,3 @@ To add new resources:
 
 All contributions must be suitable for public distribution and not contain any private/confidential information.
 
----
-
-**Note**: This folder structure is mirrored in the ragbot repository for backward compatibility with Ragbot v1.

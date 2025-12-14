@@ -8,12 +8,9 @@ This is a **PUBLIC** open source repository. Be careful not to include confident
 
 | Repository | Type | Purpose | Location |
 |------------|------|---------|----------|
-| **ragbot** | Public | AI assistant CLI and Streamlit UI | `~/projects/my-projects/ragbot/` |
-| **ragbot-site** | Public | Website for ragbot.ai | `~/projects/my-projects/ragbot-site/` |
-| **ragenie** | Public | Next-gen RAG platform | `~/projects/my-projects/ragenie/` |
-| **ragenie-site** | Public | Website for ragenie.ai | `~/projects/my-projects/ragenie-site/` |
-| **ragbot-data** | Private | Shared data for both products | `~/ragbot-data/` |
-| **synthesis-coding-site** | Public | Website for synthesiscoding.com | `~/projects/my-projects/synthesis-coding-site/` |
+| **ragbot** | Public | AI assistant CLI + Web UI | `~/projects/my-projects/ragbot/` |
+| **ragenie** | Public | Agentic extension layer for Ragbot | `~/projects/my-projects/ragenie/` |
+| **ai-knowledge-*** | Private | AI Knowledge content repos | `~/projects/my-projects/ai-knowledge/` |
 
 Note: Home directory varies by machine (`/Users/rajiv` vs `/Users/rajivpant`), so use `~` for paths.
 
@@ -23,9 +20,9 @@ All repositories are in the same VS Code workspace for unified development.
 
 ## Product Relationship
 
-- **RaGenie**: Next-generation RAG platform, successor to Ragbot. Under active development.
-- **Ragbot**: Original product, continues to be actively maintained and upgraded.
-- Both products share `ragbot-data` as their data layer.
+- **Ragbot**: Core RAG-enabled assistant (CLI + Web UI). Actively maintained.
+- **RaGenie**: Agentic extension layer that builds ON TOP of Ragbot. Adds multi-agent workflows, advanced orchestration.
+- Both products share AI Knowledge content (ai-knowledge-* repos).
 - Both products will continue to be actively developed.
 
 ## Architecture
@@ -40,11 +37,11 @@ RaGenie is a microservices-based platform:
 
 ## Data Location
 
-RaGenie reads data from `~/ragbot-data/workspaces/` (mounted read-only via Docker):
+RaGenie reads AI Knowledge content from ai-knowledge-* repos (via AI Knowledge Compiler):
 
-- **instructions/** - WHO: Identity/persona files
-- **runbooks/** - HOW: Procedure guides
-- **datasets/** - WHAT: Reference knowledge
+- **source/instructions/** - Identity/persona files
+- **source/datasets/** - Reference knowledge
+- **compiled/** - LLM-optimized output
 
 ## Privacy Guidelines for This Public Repo
 

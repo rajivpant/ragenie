@@ -189,19 +189,11 @@ lsof -i :3000
 
 ### Next Steps
 
-1. **Migrate Old Data**: If you have data from Ragbot v1, run the migration script:
-   ```bash
-   docker-compose exec auth-service python scripts/migrate_from_v1.py \
-     --sessions-dir /path/to/old/sessions \
-     --datasets-dir /path/to/curated-datasets \
-     --instructions-dir /path/to/custom-instructions
-   ```
+1. **Explore the UI**: Navigate through the frontend at http://localhost:3000
 
-2. **Explore the UI**: Navigate through the frontend at http://localhost:3000
+2. **Set Up Monitoring**: Configure Grafana dashboards at http://localhost:3001
 
-3. **Set Up Monitoring**: Configure Grafana dashboards at http://localhost:3001
-
-4. **Read the Docs**: Check out the full README.md for advanced features
+3. **Read the Docs**: Check out the full README.md for advanced features
 
 ### Common Tasks
 

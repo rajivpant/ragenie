@@ -10,11 +10,10 @@ RaGenie is an agentic AI system that builds ON TOP of Ragbot, extending it with 
 
 ## Problem Statement
 
-Ragbot provides excellent RAG-enabled assistant capabilities via CLI and Streamlit UI, but modern AI applications require:
+Ragbot provides excellent RAG-enabled assistant capabilities via CLI and Web UI, but modern AI applications require:
 
 - **Agentic capabilities** — Autonomous task execution and tool use
 - **Multi-agent orchestration** — Coordinating multiple AI agents for complex workflows
-- **Modern web UI** — React/Next.js frontend enabling richer interactions
 - **Mobile-ready architecture** — FastAPI backend supporting mobile apps and voice UI
 - **Scalable infrastructure** — Microservices architecture for production deployment
 
@@ -57,7 +56,7 @@ Build RaGenie as an **extension layer** on top of Ragbot, not a replacement:
 │  ┌─────────────────────────────────────────────────────────┐ │
 │  │  Existing UIs                                           │ │
 │  │  - CLI (ragbot.py)                                      │ │
-│  │  - Streamlit UI                                         │ │
+│  │  - Web UI                                               │ │
 │  └─────────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────┘
                               │
@@ -97,20 +96,11 @@ Build RaGenie as an **extension layer** on top of Ragbot, not a replacement:
 | Ragbot integration | Not Started | Connect RaGenie to Ragbot core |
 | Frontend | Not Started | React/Next.js UI |
 
-## Strategic Pivot Note
-
-> **Important:** The existing codebase was built as a "Ragbot v2 replacement". The new strategic direction is for RaGenie to be an **extension layer** that builds ON TOP of Ragbot. This means:
->
-> - The existing microservices infrastructure is valuable and can be reused
-> - The LangGraph agentic workflows are exactly what RaGenie needs
-> - The RAG pipeline can be adapted to work with Ragbot's core
-> - Future work should focus on integration, not duplication
-
 ## Key Decisions
 
 ### Why Build ON TOP of Ragbot (Not Replace)?
 
-1. **Ragbot works well** — The CLI and Streamlit UI serve their purpose effectively
+1. **Ragbot works well** — The CLI and Web UI serve their purpose effectively
 2. **Avoid duplication** — Ragbot's RAG engine, LLM clients, and persona handling are mature
 3. **Incremental value** — Users can adopt RaGenie features without abandoning Ragbot
 4. **Separation of concerns** — Ragbot = RAG engine, RaGenie = agentic orchestration
@@ -122,12 +112,11 @@ Build RaGenie as an **extension layer** on top of Ragbot, not a replacement:
 3. **Production-ready** — Easy deployment, monitoring, scaling
 4. **Type safety** — Pydantic schemas for request/response validation
 
-### Why React/Next.js Frontend?
+### Why React/Next.js Frontend for RaGenie?
 
-1. **Rich interactions** — Beyond what Streamlit offers
-2. **Mobile-ready** — PWA or React Native sharing code
-3. **Voice UI ready** — Web Speech API integration
-4. **Modern UX** — Real-time updates, complex state management
+1. **Mobile-ready** — PWA or React Native sharing code
+2. **Voice UI ready** — Web Speech API integration
+3. **Advanced agentic UX** — Multi-agent workflow visualization, real-time updates
 
 ## Related Projects
 
