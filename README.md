@@ -18,7 +18,7 @@ RaGenie is an agentic AI system that extends [Ragbot](https://github.com/rajivpa
 │                        Ragbot                                │
 │  - Core RAG engine                                          │
 │  - LLM integration (OpenAI, Anthropic, Google)              │
-│  - CLI interface                                            │
+│  - CLI + Web UI                                             │
 │  - AI Knowledge content compilation                         │
 └─────────────────────────────────────────────────────────────┘
                               │
@@ -29,8 +29,8 @@ RaGenie is an agentic AI system that extends [Ragbot](https://github.com/rajivpa
 └─────────────────────────────────────────────────────────────┘
 ```
 
-**Ragbot** = Core RAG-enabled assistant (CLI)
-**RaGenie** = Agentic extension layer (web UI, multi-agent workflows)
+**Ragbot** = Core RAG-enabled assistant (CLI + Web UI)
+**RaGenie** = Agentic extension layer (multi-agent workflows, advanced orchestration)
 
 Both products share the same AI Knowledge content.
 
@@ -40,7 +40,7 @@ Both products share the same AI Knowledge content.
 |------------|--------|---------|
 | RAG-powered chat | Yes | Yes (via Ragbot) |
 | CLI interface | Yes | No |
-| Web UI | No | Yes (React/Next.js) |
+| Web UI | Yes | Yes |
 | Agentic workflows | No | Yes (LangGraph) |
 | Multi-agent orchestration | No | Yes |
 | REST API | No | Yes (FastAPI) |
