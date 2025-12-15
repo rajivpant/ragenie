@@ -25,14 +25,15 @@ RaGenie is an agentic AI system that extends [Ragbot](https://github.com/rajivpa
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                    AI Knowledge Repos                        │
-│  ai-knowledge-rajiv, ai-knowledge-flatiron, etc.            │
+│  ai-knowledge-ragbot (public templates/runbooks)            │
+│  ai-knowledge-rajiv, ai-knowledge-flatiron, etc. (private)  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 **Ragbot** = Core RAG-enabled assistant (CLI + Web UI + API)
 **RaGenie** = Agentic extension layer (multi-agent workflows, advanced orchestration)
 
-Both products share the same AI Knowledge content.
+Both products share the same AI Knowledge content from the ai-knowledge-* repositories.
 
 ## What RaGenie Adds
 
@@ -134,7 +135,8 @@ RaGenie is built using **Synthesis Engineering**—systematically integrating hu
 | Repository | Purpose |
 |------------|---------|
 | [ragbot](https://github.com/rajivpant/ragbot) | Core RAG engine (RaGenie extends this) |
-| ai-knowledge-* | AI Knowledge content repos |
+| [ai-knowledge-ragbot](https://github.com/rajivpant/ai-knowledge-ragbot) | Open-source templates, runbooks, guides |
+| ai-knowledge-* (private) | Personal/workspace AI Knowledge repos |
 
 ## License
 
