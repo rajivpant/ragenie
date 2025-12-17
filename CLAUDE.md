@@ -49,7 +49,7 @@ RaGenie reads AI Knowledge content from ai-knowledge-* repos (via AI Knowledge C
 
 - Client/employer company names (use "example-company" instead)
 - Workspace names that reveal client relationships
-- Any content from ragbot-data that could identify clients
+- Any content from ai-knowledge repos that could identify clients
 
 ### Safe to use
 
