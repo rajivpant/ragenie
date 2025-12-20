@@ -15,7 +15,7 @@
 | **File names** | ragenie | `ragenie.py`, `ragenie-config.yaml` |
 | **Folder names** | ragenie | `/ragenie`, `ragenie/services` |
 | **Package names** | ragenie | `pip install ragenie` |
-| **URLs** | ragenie | ragenie.com, ragenie.ai |
+| **URLs** | ragenie | ragenie.ai (ragenie.com redirects) |
 | **Commands** | ragenie | `ragenie start`, `./ragenie` |
 | **Code references** | ragenie | `from ragenie import...` |
 | **Database names** | ragenie | `ragenie_production` |
@@ -116,6 +116,6 @@ BRAND_NAME = "RaGenie"
 **Official Name:** RaGenie
 **Pronunciation:** "RAJ-ee-nee" or "RAY-jee-nee"
 **Tagline:** Agentic AI Platform
-**Domains:** ragenie.com, ragenie.ai
+**Domains:** ragenie.ai (ragenie.com redirects)
 **Relationship:** Extension layer on Ragbot
 **Maintainer:** Rajiv Pant
