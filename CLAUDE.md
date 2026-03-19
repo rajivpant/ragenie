@@ -113,4 +113,4 @@ Each repo in the ecosystem has its own git history. Don't run git commands from 
 
 ## Skills
 
-For code review methodology, see the codebase-review and pr-review skills.
+For code review methodology, see the synthesis-codebase-review and synthesis-pr-review skills.
