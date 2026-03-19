@@ -110,3 +110,7 @@ Each repo in the ecosystem has its own git history. Don't run git commands from 
 - FastAPI for backend services
 - React/TypeScript for frontend
 - Qdrant for vector search (shared technology choice with Ragbot's planned RAG)
+
+## Skills
+
+For code review methodology, see the codebase-review and pr-review skills.
