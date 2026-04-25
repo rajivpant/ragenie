@@ -32,9 +32,9 @@ projects/
 
 | Project | Location | Relationship |
 |---------|----------|--------------|
-| **Ragbot** | [github.com/rajivpant/ragbot](https://github.com/rajivpant/ragbot) | Core RAG engine that RaGenie extends |
-| **AI Knowledge Compiler** | [ragbot/projects/active/ai-knowledge-compiler](https://github.com/rajivpant/ragbot/tree/main/projects/active/ai-knowledge-compiler) | Compiles content for both products |
+| **Ragbot** | [github.com/synthesisengineering/ragbot](https://github.com/synthesisengineering/ragbot) | Core RAG engine that RaGenie extends |
+| **AI Knowledge Compiler** | [ragbot/projects/active/ai-knowledge-compiler](https://github.com/synthesisengineering/ragbot/tree/main/projects/active/ai-knowledge-compiler) | Compiles content for both products |
 
 ## Convention
 
-See [Project Documentation Convention](https://github.com/rajivpant/ragbot/blob/main/docs/conventions/project-documentation.md).
+See [Project Documentation Convention](https://github.com/synthesisengineering/ragbot/blob/main/docs/conventions/project-documentation.md).

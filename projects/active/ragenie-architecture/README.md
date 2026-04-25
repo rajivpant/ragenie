@@ -79,7 +79,7 @@ Build RaGenie as an **extension layer** on top of Ragbot, not a replacement:
 ## Quick Links
 
 - **RaGenie Source Code:** `/Users/rajivpant/projects/my-projects/ragenie/`
-- **Ragbot (core):** [github.com/rajivpant/ragbot](https://github.com/rajivpant/ragbot)
+- **Ragbot (core):** [github.com/synthesisengineering/ragbot](https://github.com/synthesisengineering/ragbot)
 - **AI Knowledge Repos:** `/Users/rajivpant/projects/my-projects/ai-knowledge/`
 
 ## Current Status
@@ -120,5 +120,5 @@ Build RaGenie as an **extension layer** on top of Ragbot, not a replacement:
 
 | Project | Location | Description |
 |---------|----------|-------------|
-| Ragbot | [github.com/rajivpant/ragbot](https://github.com/rajivpant/ragbot) | Core RAG-enabled assistant |
-| AI Knowledge Compiler | [ragbot/projects/active/ai-knowledge-compiler](https://github.com/rajivpant/ragbot/tree/main/projects/active/ai-knowledge-compiler) | Compiles AI knowledge content |
+| Ragbot | [github.com/synthesisengineering/ragbot](https://github.com/synthesisengineering/ragbot) | Core RAG-enabled assistant |
+| AI Knowledge Compiler | [ragbot/projects/active/ai-knowledge-compiler](https://github.com/synthesisengineering/ragbot/tree/main/projects/active/ai-knowledge-compiler) | Compiles AI knowledge content |

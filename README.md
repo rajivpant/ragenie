@@ -1,6 +1,6 @@
 # RaGenie - Agentic AI Platform
 
-RaGenie is an agentic AI system that extends [Ragbot](https://github.com/rajivpant/ragbot) with advanced orchestration, multi-agent workflows, and a modern web UI.
+RaGenie is an agentic AI system that extends [Ragbot](https://github.com/synthesisengineering/ragbot) with advanced orchestration, multi-agent workflows, and a modern web UI.
 
 ## Relationship with Ragbot
 
@@ -134,7 +134,7 @@ RaGenie is built using **Synthesis Engineering**—systematically integrating hu
 
 | Repository | Purpose |
 |------------|---------|
-| [ragbot](https://github.com/rajivpant/ragbot) | Core RAG engine (RaGenie extends this) |
+| [ragbot](https://github.com/synthesisengineering/ragbot) | Core RAG engine (RaGenie extends this) |
 | [ai-knowledge-ragbot](https://github.com/rajivpant/ai-knowledge-ragbot) | Open-source templates, runbooks, guides |
 | ai-knowledge-* (private) | Personal/workspace AI Knowledge repos |
 
