@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
 
     # Application
-    APP_NAME: str = "RaGenie Auth Service"
+    APP_NAME: str = "Ragenie Auth Service"
     VERSION: str = "1.0.0"
     DEBUG: bool = True
     ENVIRONMENT: str = "development"

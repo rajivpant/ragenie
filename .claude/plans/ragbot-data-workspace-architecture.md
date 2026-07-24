@@ -1,12 +1,12 @@
-# RaGenie: ragbot-data Workspace Architecture Update
+# Ragenie: ragbot-data Workspace Architecture Update
 
-This document captures lessons learned and required changes from the ragbot project's November 2024 reorganization. Use this as context when implementing corresponding changes to RaGenie.
+This document captures lessons learned and required changes from the ragbot project's November 2024 reorganization. Use this as context when implementing corresponding changes to Ragenie.
 
 ---
 
 ## Summary
 
-The `ragbot-data` repository has been reorganized into a **workspace-based architecture** that RaGenie needs to understand and support. This includes:
+The `ragbot-data` repository has been reorganized into a **workspace-based architecture** that Ragenie needs to understand and support. This includes:
 
 1. New folder structure with `workspaces/` as the root
 2. WHO/HOW/WHAT conceptual model for content organization
@@ -161,7 +161,7 @@ for filepath in glob.glob(os.path.join(path, "**/*"), recursive=True):
 
 ---
 
-## RaGenie: Required Updates
+## Ragenie: Required Updates
 
 ### 1. Update File Watcher Config
 
@@ -216,7 +216,7 @@ elif "/datasets/" in doc.file_path:
 
 ### 3. Add Workspace Support
 
-RaGenie should understand workspaces to:
+Ragenie should understand workspaces to:
 1. Allow filtering by workspace
 2. Respect workspace inheritance
 3. Support workspace-specific retrieval
@@ -310,7 +310,7 @@ def discover_workspaces(data_root: Path) -> List[Workspace]:
 
 ## Reference: ragbot helpers.py Functions
 
-These functions from ragbot may be useful as reference for RaGenie:
+These functions from ragbot may be useful as reference for Ragenie:
 
 ### discover_workspaces()
 ```python

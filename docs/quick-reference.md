@@ -1,4 +1,4 @@
-# RaGenie Quick Reference
+# Ragenie Quick Reference
 
 ## 🚀 Quick Start
 
@@ -34,7 +34,7 @@ curl http://localhost:8004/conversations/1/messages
 # Non-streaming
 curl -X POST http://localhost:8004/conversations/1/chat \
   -H "Content-Type: application/json" \
-  -d '{"query": "What is RaGenie?"}'
+  -d '{"query": "What is Ragenie?"}'
 
 # Streaming (SSE)
 curl -X POST http://localhost:8004/conversations/1/chat/stream \

@@ -1,4 +1,4 @@
-# RaGenie Technical Architecture
+# Ragenie Technical Architecture
 
 ## Strategic Positioning
 
@@ -8,7 +8,7 @@
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │   ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐ │
-│   │    Ragbot       │    │    RaGenie      │    │    Future       │ │
+│   │    Ragbot       │    │    Ragenie      │    │    Future       │ │
 │   │    (Core)       │───▶│    (Agentic)    │───▶│    Products     │ │
 │   └─────────────────┘    └─────────────────┘    └─────────────────┘ │
 │          │                       │                                   │
@@ -22,9 +22,9 @@
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-## Ragbot vs RaGenie: Complementary Products
+## Ragbot vs Ragenie: Complementary Products
 
-| Aspect | Ragbot | RaGenie |
+| Aspect | Ragbot | Ragenie |
 |--------|--------|---------|
 | **Primary Use Case** | RAG-enabled personal assistant | Agentic AI workflows |
 | **Interface** | CLI, Web UI, API | Web UI, API |
@@ -32,7 +32,7 @@
 | **Users** | Individual users, teams | Teams, organizations |
 | **Key Feature** | Knowledge retrieval | Agentic workflows (LangGraph) |
 
-## RaGenie System Architecture
+## Ragenie System Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -132,11 +132,11 @@ Orchestrates agentic AI workflows:
 
 ### RAG Service (Planned - via Ragbot Integration)
 
-Rather than duplicating Ragbot's RAG capabilities, RaGenie will integrate with Ragbot:
+Rather than duplicating Ragbot's RAG capabilities, Ragenie will integrate with Ragbot:
 
 **Option A: Library Import**
 ```python
-# RaGenie service imports Ragbot as a library
+# Ragenie service imports Ragbot as a library
 from ragbot.core import RAGEngine
 engine = RAGEngine(workspace="rajiv")
 response = engine.query("What are my preferences?")
@@ -144,21 +144,21 @@ response = engine.query("What are my preferences?")
 
 **Option B: Subprocess/CLI**
 ```python
-# RaGenie calls Ragbot CLI
+# Ragenie calls Ragbot CLI
 import subprocess
 result = subprocess.run(["python", "ragbot.py", "-w", "rajiv", "-q", query])
 ```
 
 **Option C: Internal API** (recommended for production)
 ```python
-# Ragbot exposes an internal API that RaGenie consumes
+# Ragbot exposes an internal API that Ragenie consumes
 # This requires adding an API layer to Ragbot
 response = requests.post("http://ragbot:8000/query", json={"workspace": "rajiv", "query": query})
 ```
 
 ## Agentic Capabilities
 
-### What Makes RaGenie "Agentic"?
+### What Makes Ragenie "Agentic"?
 
 1. **Autonomous Task Execution**
    - Given a goal, agent breaks it into steps and executes
@@ -211,13 +211,13 @@ ai-knowledge-rajiv/
 ├── source/
 │   ├── instructions/
 │   └── datasets/
-└── compiled/           # Used by both Ragbot and RaGenie
+└── compiled/           # Used by both Ragbot and Ragenie
     └── claude-projects/
 ```
 
 ### Ragbot as RAG Engine
 
-RaGenie uses Ragbot's RAG capabilities for:
+Ragenie uses Ragbot's RAG capabilities for:
 - Knowledge retrieval from compiled instructions
 - Persona-aware response generation
 - Context injection for agentic tasks

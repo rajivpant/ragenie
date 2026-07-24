@@ -1,8 +1,8 @@
-# RaGenie Testing Guide
+# Ragenie Testing Guide
 
 ## Overview
 
-This guide provides step-by-step instructions for testing RaGenie's backend services.
+This guide provides step-by-step instructions for testing Ragenie's backend services.
 
 ---
 
@@ -174,7 +174,7 @@ curl "http://localhost:8003/ragbot/status" | jq
 ```bash
 curl -X POST "http://localhost:8003/ragbot/embed/generate" \
   -H "Content-Type: application/json" \
-  -d '{"text": "What is RaGenie?"}' | jq '.dimensions'
+  -d '{"text": "What is Ragenie?"}' | jq '.dimensions'
 ```
 
 **Expected**: `1536` (embedding dimensions)
@@ -233,7 +233,7 @@ curl -X POST "http://localhost:8004/conversations/$CONV_ID/messages" \
   -H "Content-Type: application/json" \
   -d '{
     "role": "user",
-    "content": "What is RaGenie and how does it work?"
+    "content": "What is Ragenie and how does it work?"
   }' | jq
 ```
 
@@ -242,7 +242,7 @@ curl -X POST "http://localhost:8004/conversations/$CONV_ID/messages" \
 #### Get RAG Context (THE KEY TEST!)
 
 ```bash
-curl "http://localhost:8004/conversations/$CONV_ID/context?query=What%20is%20RaGenie" | jq
+curl "http://localhost:8004/conversations/$CONV_ID/context?query=What%20is%20Ragenie" | jq
 ```
 
 **Expected Response Structure**:
@@ -255,7 +255,7 @@ curl "http://localhost:8004/conversations/$CONV_ID/context?query=What%20is%20RaG
     {
       "file_path": "custom-instructions/overview.md",
       "chunk_index": 0,
-      "chunk_text": "RaGenie is a RAG-powered...",
+      "chunk_text": "Ragenie is a RAG-powered...",
       "similarity_score": 0.85,
       "source": "ragbot-data",
       "category": "custom-instructions"
@@ -263,7 +263,7 @@ curl "http://localhost:8004/conversations/$CONV_ID/context?query=What%20is%20RaG
   ],
   "conversation_history": [...],
   "system_prompt": "# Custom Instructions\n...\n# Relevant Context from Knowledge Base\n...",
-  "user_query": "What is RaGenie",
+  "user_query": "What is Ragenie",
   "total_retrieved": 5,
   "retrieval_time_ms": 234.5
 }
@@ -355,7 +355,7 @@ This tests the complete flow from file to RAG response:
 
 ```bash
 # 1. Add a new file to ragbot-data
-echo "# Test Document\n\nThis is a test for RaGenie's RAG capabilities." > \
+echo "# Test Document\n\nThis is a test for Ragenie's RAG capabilities." > \
   /Users/rajivpant/ragbot-data/curated-datasets/test-document.md
 
 # 2. Wait for file detection (5 seconds)
@@ -368,7 +368,7 @@ curl "http://localhost:8003/ragbot/curated-datasets/test-document.md" | jq '.emb
 sleep 30
 
 # 5. Query with RAG
-curl "http://localhost:8004/conversations/1/context?query=test%20RaGenie%20capabilities" | jq '.retrieved_documents[] | .file_path'
+curl "http://localhost:8004/conversations/1/context?query=test%20Ragenie%20capabilities" | jq '.retrieved_documents[] | .file_path'
 
 # Expected: Should include "curated-datasets/test-document.md"
 ```
@@ -451,7 +451,7 @@ Use FastAPI's built-in Swagger UI for interactive testing:
 
 ## Success Criteria
 
-Your RaGenie backend is working correctly if:
+Your Ragenie backend is working correctly if:
 
 - ✅ All health checks return 200 OK
 - ✅ File watcher detects changes within 5 seconds

@@ -2,7 +2,7 @@
 
 # Script to run database migrations
 
-echo "🔄 Running RaGenie Database Migrations"
+echo "🔄 Running Ragenie Database Migrations"
 echo "========================================"
 echo ""
 

@@ -1,8 +1,8 @@
-# RaGenie - Current Development Status
+# Ragenie - Current Development Status
 
 ## Last Updated: 2025-11-24 (Session 4 - Product Resources Architecture)
 
-> **IMPORTANT**: This file contains the current state of RaGenie development.
+> **IMPORTANT**: This file contains the current state of Ragenie development.
 > If this chat context is lost, READ THIS FILE FIRST to understand where we are.
 
 ---
@@ -65,13 +65,13 @@
 
 **NEW in Session 4**: Clear separation between product resources and user data.
 
-### Product Resources (Public, Ships with RaGenie)
+### Product Resources (Public, Ships with Ragenie)
 - **Location**: `./resources/` (part of ragenie repository)
 - **Container Path**: `/data/resources/` (read-only mount)
-- **Purpose**: Guides, workflows, templates that ship with RaGenie
+- **Purpose**: Guides, workflows, templates that ship with Ragenie
 - **Indexing**: NOT indexed by file-watcher (static reference material)
 - **Distribution**: Open-source, publicly accessible on GitHub
-- **Standalone Usage**: Can be used in other projects without RaGenie
+- **Standalone Usage**: Can be used in other projects without Ragenie
 
 **Structure**:
 ```
@@ -90,7 +90,7 @@ resources/
 - **Container Path**: `/data/user-data/` (read-only mount)
 - **Purpose**: User's personal documents, notes, private content
 - **Indexing**: YES - monitored by file-watcher and embedded for RAG
-- **Distribution**: NOT shipped with RaGenie (private data)
+- **Distribution**: NOT shipped with Ragenie (private data)
 - **Example**: `/Users/rajivpant/ragbot-data`
 
 ### Volume Mounts Configuration
@@ -321,7 +321,7 @@ Stream response to frontend
 1. Copy `.env.example` to `.env`
 2. Add OpenAI API key: `OPENAI_API_KEY=sk-...`
 3. Ensure user data directory exists (default: `/Users/rajivpant/ragbot-data`)
-4. Product resources are in `./resources/` (ships with RaGenie)
+4. Product resources are in `./resources/` (ships with Ragenie)
 
 ### Start Services
 ```bash

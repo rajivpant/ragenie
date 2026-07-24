@@ -162,7 +162,7 @@ GET /conversations/{id}/context?query=...
     {
       "file_path": "curated-datasets/ragenie/overview.md",
       "chunk_index": 0,
-      "chunk_text": "RaGenie is a RAG-powered chat system...",
+      "chunk_text": "Ragenie is a RAG-powered chat system...",
       "similarity_score": 0.89,
       "source": "ragbot-data",
       "category": "curated-datasets",
@@ -170,11 +170,11 @@ GET /conversations/{id}/context?query=...
     }
   ],
   "conversation_history": [
-    {"role": "user", "content": "What is RaGenie?"},
-    {"role": "assistant", "content": "RaGenie is..."}
+    {"role": "user", "content": "What is Ragenie?"},
+    {"role": "assistant", "content": "Ragenie is..."}
   ],
   "system_prompt": "# Custom Instructions\n...\n\n# Relevant Context from Knowledge Base\n...",
-  "user_query": "How does RaGenie work?",
+  "user_query": "How does Ragenie work?",
   "total_retrieved": 5,
   "retrieval_time_ms": 234.5
 }
@@ -200,7 +200,7 @@ Comprehensive testing documentation covering:
 ### Key Test
 ```bash
 # Test RAG context assembly
-curl "http://localhost:8004/conversations/1/context?query=What%20is%20RaGenie" | jq
+curl "http://localhost:8004/conversations/1/context?query=What%20is%20Ragenie" | jq
 
 # Should return:
 # - retrieved_documents with high similarity scores

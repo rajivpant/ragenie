@@ -1,17 +1,19 @@
-# RaGenie Brand Guidelines
+# Ragenie Brand Guidelines
 
 ## Brand Name
 
-**Official Name:** RaGenie (capital R, capital G)
+**Official Name:** Ragenie (capital R, sentence case)
+
+Renamed from the earlier "RaGenie" (capital R, capital G) form on 2026-05-13. All branding, documentation, and prose must use the sentence-case form going forward.
 
 ### Usage by Context
 
 | Context | Format | Example |
 |---------|--------|---------|
-| **Primary Branding** | RaGenie | "Welcome to RaGenie" |
-| **Marketing Materials** | RaGenie | "RaGenie - Agentic AI Platform" |
-| **Documentation** | RaGenie | "RaGenie is a powerful agentic system" |
-| **Social Media** | RaGenie or #ragenie | "Just deployed my @RaGenie instance!" |
+| **Primary Branding** | Ragenie | "Welcome to Ragenie" |
+| **Marketing Materials** | Ragenie | "Ragenie - Agentic AI Platform" |
+| **Documentation** | Ragenie | "Ragenie is a powerful agentic system" |
+| **Social Media** | Ragenie or #ragenie | "Just deployed my @Ragenie instance!" |
 | **File names** | ragenie | `ragenie.py`, `ragenie-config.yaml` |
 | **Folder names** | ragenie | `/ragenie`, `ragenie/services` |
 | **Package names** | ragenie | `pip install ragenie` |
@@ -26,29 +28,29 @@
 - RAGENIE (all caps)
 - RAGenie (capital A and G)
 - raGenie (lowercase r, capital G)
-- Ragenie (only first letter capital)
 - Ra-Genie (hyphenated)
+- The old capital-G form (deprecated 2026-05-13 — brand prose must use sentence case: capital R only, lowercase everything after)
 
 **Always Use:**
-- RaGenie (capital R, capital G)
+- Ragenie (capital R, sentence case) for prose and branding
 - ragenie (all lowercase for technical contexts)
 
 ## Brand Story
 
 ### Name Meaning
 
-**RaGenie** combines:
+**Ragenie** combines:
 - **RAG** = Retrieval Augmented Generation (the core technology)
 - **Genie** = A magical assistant that helps humans
 
-The capital G emphasizes the "Genie" aspect - RaGenie is your AI genie for agentic workflows.
+Ragenie is your AI genie for agentic workflows.
 
 ### Relationship with Ragbot
 
-RaGenie is an **extension layer** that builds on top of Ragbot:
+Ragenie is an **extension layer** that builds on top of Ragbot:
 
 - **Ragbot** = Core RAG-enabled assistant (CLI + Web UI + API)
-- **RaGenie** = Agentic extension layer (multi-agent workflows, advanced orchestration)
+- **Ragenie** = Agentic extension layer (multi-agent workflows, advanced orchestration)
 
 Both products share the same AI Knowledge content and complement each other.
 
@@ -62,7 +64,7 @@ Both products share the same AI Knowledge content and complement each other.
 - "Orchestrating AI Agents for Complex Work"
 
 ### Positioning Statement
-RaGenie extends Ragbot with agentic capabilities - multi-agent orchestration, workflow automation, and advanced tool integration - while leveraging Ragbot's proven RAG engine.
+Ragenie extends Ragbot with agentic capabilities - multi-agent orchestration, workflow automation, and advanced tool integration - while leveraging Ragbot's proven RAG engine.
 
 ## Tone of Voice
 
@@ -75,8 +77,8 @@ RaGenie extends Ragbot with agentic capabilities - multi-agent orchestration, wo
 
 ### Example Phrases
 Good:
-- "RaGenie adds agentic workflows to your AI stack"
-- "Orchestrate AI agents with RaGenie"
+- "Ragenie adds agentic workflows to your AI stack"
+- "Orchestrate AI agents with Ragenie"
 - "Multi-agent workflows built on Ragbot"
 
 Avoid:
@@ -86,11 +88,11 @@ Avoid:
 ## Technical Branding
 
 ### Service Names
-- RaGenie Auth Service
-- RaGenie User Service
-- RaGenie Document Service
-- RaGenie Conversation Service
-- RaGenie LLM Gateway Service
+- Ragenie Auth Service
+- Ragenie User Service
+- Ragenie Document Service
+- Ragenie Conversation Service
+- Ragenie LLM Gateway Service
 
 ### Docker Containers
 Use lowercase with hyphen separator:
@@ -106,14 +108,14 @@ Use lowercase with hyphen separator:
 
 ### Code Constants
 ```python
-APP_NAME = "RaGenie Auth Service"
-PROJECT_NAME = "RaGenie"
-BRAND_NAME = "RaGenie"
+APP_NAME = "Ragenie Auth Service"
+PROJECT_NAME = "Ragenie"
+BRAND_NAME = "Ragenie"
 ```
 
 ## Quick Reference
 
-**Official Name:** RaGenie
+**Official Name:** Ragenie
 **Pronunciation:** "RAJ-ee-nee" or "RAY-jee-nee"
 **Tagline:** Agentic AI Platform
 **Domains:** ragenie.ai (ragenie.com redirects)

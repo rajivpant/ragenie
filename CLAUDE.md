@@ -7,13 +7,13 @@ This is a **PUBLIC** open source repository. Be careful not to include confident
 ## Product Relationship
 
 - **Ragbot**: Core RAG-enabled assistant (CLI + Web UI + API). Actively maintained.
-- **RaGenie**: Agentic extension layer that builds ON TOP of Ragbot. Adds multi-agent workflows, advanced orchestration.
+- **Ragenie**: Agentic extension layer that builds ON TOP of Ragbot. Adds multi-agent workflows, advanced orchestration.
 - Both products share AI Knowledge content (ai-knowledge-* repos).
 - Both products will continue to be actively developed.
 
 ## Architecture
 
-RaGenie is a microservices-based platform:
+Ragenie is a microservices-based platform:
 
 - **FastAPI backend** - REST API services
 - **React frontend** - Modern web UI
@@ -23,7 +23,7 @@ RaGenie is a microservices-based platform:
 
 ## Data Location
 
-RaGenie reads AI Knowledge content from ai-knowledge-* repos (via AI Knowledge Compiler):
+Ragenie reads AI Knowledge content from ai-knowledge-* repos (via AI Knowledge Compiler):
 
 - **source/instructions/** - Identity/persona files
 - **source/datasets/** - Reference knowledge

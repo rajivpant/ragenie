@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide explains how RaGenie uses LangGraph for agentic RAG workflows, including architecture, usage, and customization.
+This guide explains how Ragenie uses LangGraph for agentic RAG workflows, including architecture, usage, and customization.
 
 ---
 
@@ -10,7 +10,7 @@ This guide explains how RaGenie uses LangGraph for agentic RAG workflows, includ
 
 ### StateGraph Workflow
 
-RaGenie implements a three-node StateGraph for RAG-powered conversations:
+Ragenie implements a three-node StateGraph for RAG-powered conversations:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -89,8 +89,8 @@ Relevance Score: 0.85
 
 # Recent Conversation History
 
-**User**: What is RaGenie?
-**Assistant**: RaGenie is a RAG-powered...
+**User**: What is Ragenie?
+**Assistant**: Ragenie is a RAG-powered...
 ```
 
 #### 3. GENERATE Node
@@ -184,7 +184,7 @@ class RAGState(TypedDict):
 **Request**:
 ```json
 {
-  "query": "What is RaGenie and how does it work?"
+  "query": "What is Ragenie and how does it work?"
 }
 ```
 
@@ -192,12 +192,12 @@ class RAGState(TypedDict):
 ```json
 {
   "conversation_id": 1,
-  "response": "RaGenie is a RAG-powered chat system...",
+  "response": "Ragenie is a RAG-powered chat system...",
   "retrieved_documents": [
     {
       "file_path": "curated-datasets/ragenie/overview.md",
       "chunk_index": 0,
-      "chunk_text": "RaGenie is...",
+      "chunk_text": "Ragenie is...",
       "similarity_score": 0.89,
       "source": "ragbot-data",
       "category": "curated-datasets",
@@ -287,7 +287,7 @@ async def chat_streaming(conversation_id: int, query: str):
                     print(f"Event: {data}")
 
 # Usage
-response = await chat_with_ragenie(1, "What is RaGenie?")
+response = await chat_with_ragenie(1, "What is Ragenie?")
 print(response["response"])
 ```
 
@@ -297,7 +297,7 @@ print(response["response"])
 # Non-streaming
 curl -X POST "http://localhost:8004/conversations/1/chat" \
   -H "Content-Type: application/json" \
-  -d '{"query": "What is RaGenie?"}'
+  -d '{"query": "What is Ragenie?"}'
 
 # Streaming (watch events)
 curl -X POST "http://localhost:8004/conversations/1/chat/stream" \

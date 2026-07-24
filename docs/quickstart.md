@@ -1,6 +1,6 @@
-## RaGenie - Quick Start Guide
+## Ragenie - Quick Start Guide
 
-This guide will help you get RaGenie up and running in minutes.
+This guide will help you get Ragenie up and running in minutes.
 
 ### Prerequisites
 

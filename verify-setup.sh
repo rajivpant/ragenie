@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# RaGenie Setup Verification Script
+# Ragenie Setup Verification Script
 # This script checks if all services are running correctly
 
-echo "🔍 RaGenie - Setup Verification"
+echo "🔍 Ragenie - Setup Verification"
 echo "=================================="
 echo ""
 
@@ -153,7 +153,7 @@ echo "=================================="
 if [ "$running_services" -eq "$total_services" ]; then
     echo -e "${GREEN}✓ All services are running! ($running_services/$total_services)${NC}"
     echo ""
-    echo "🎉 You're ready to use RaGenie!"
+    echo "🎉 You're ready to use Ragenie!"
     echo "   Visit http://localhost:3000 to get started."
     exit 0
 elif [ "$running_services" -gt 0 ]; then

@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
 
     # Application
-    APP_NAME: str = "RaGenie User Service"
+    APP_NAME: str = "Ragenie User Service"
     VERSION: str = "1.0.0"
     DEBUG: bool = True
     ENVIRONMENT: str = "development"

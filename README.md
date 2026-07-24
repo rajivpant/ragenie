@@ -1,12 +1,12 @@
-# RaGenie - Agentic AI Platform
+# Ragenie - Agentic AI Platform
 
-RaGenie is an agentic AI system that extends [Ragbot](https://github.com/synthesisengineering/ragbot) with advanced orchestration, multi-agent workflows, and a modern web UI.
+Ragenie is an agentic AI system that extends [Ragbot](https://github.com/synthesisengineering/ragbot) with advanced orchestration, multi-agent workflows, and a modern web UI.
 
 ## Relationship with Ragbot
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                        RaGenie                               │
+│                        Ragenie                               │
 │  - Agentic workflows (LangGraph)                            │
 │  - Multi-agent orchestration                                │
 │  - FastAPI backend + React/Next.js frontend                 │
@@ -31,13 +31,13 @@ RaGenie is an agentic AI system that extends [Ragbot](https://github.com/synthes
 ```
 
 **Ragbot** = Core RAG-enabled assistant (CLI + Web UI + API)
-**RaGenie** = Agentic extension layer (multi-agent workflows, advanced orchestration)
+**Ragenie** = Agentic extension layer (multi-agent workflows, advanced orchestration)
 
 Both products share the same AI Knowledge content from the ai-knowledge-* repositories.
 
-## What RaGenie Adds
+## What Ragenie Adds
 
-| Capability | Ragbot | RaGenie |
+| Capability | Ragbot | Ragenie |
 |------------|--------|---------|
 | RAG-powered chat | Yes | Yes (via Ragbot) |
 | CLI interface | Yes | No |
@@ -125,7 +125,7 @@ See [projects/](projects/) for detailed architecture and development docs:
 
 ## Development
 
-RaGenie is built using **Synthesis Engineering**—systematically integrating human expertise with AI capabilities. Learn more:
+Ragenie is built using **Synthesis Engineering**—systematically integrating human expertise with AI capabilities. Learn more:
 
 - [The Professional Practice](https://rajiv.com/blog/2025/11/09/synthesis-engineering-the-professional-practice-emerging-in-ai-assisted-development/)
 - [Technical Implementation](https://rajiv.com/blog/2025/11/09/synthesis-engineering-with-claude-code-technical-implementation-and-workflows/)
@@ -134,7 +134,7 @@ RaGenie is built using **Synthesis Engineering**—systematically integrating hu
 
 | Repository | Purpose |
 |------------|---------|
-| [ragbot](https://github.com/synthesisengineering/ragbot) | Core RAG engine (RaGenie extends this) |
+| [ragbot](https://github.com/synthesisengineering/ragbot) | Core RAG engine (Ragenie extends this) |
 | [ai-knowledge-ragbot](https://github.com/rajivpant/ai-knowledge-ragbot) | Open-source templates, runbooks, guides |
 | ai-knowledge-* (private) | Personal/workspace AI Knowledge repos |
 

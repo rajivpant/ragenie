@@ -1,4 +1,4 @@
-# RaGenie Guides
+# Ragenie Guides
 
 User-facing guides for common tasks and workflows.
 
@@ -13,7 +13,7 @@ Located in `writing/`:
 
 ## Usage
 
-These guides are available at `/data/resources/guides/` in RaGenie containers.
+These guides are available at `/data/resources/guides/` in Ragenie containers.
 
 You can reference them in:
 - Custom instructions

@@ -28,7 +28,7 @@ app = FastAPI(
     title=settings.APP_NAME,
     version=settings.VERSION,
     debug=settings.DEBUG,
-    description="LLM Gateway Service for RaGenie - Unified interface to multiple LLM providers"
+    description="LLM Gateway Service for Ragenie - Unified interface to multiple LLM providers"
 )
 
 # Configure CORS

@@ -1,12 +1,12 @@
 # Projects
 
-Project documentation for RaGenie development.
+Project documentation for Ragenie development.
 
 ## Active Projects
 
 | Project | Description | Status |
 |---------|-------------|--------|
-| [RaGenie Architecture](active/ragenie-architecture/) | Strategic architecture - RaGenie as extension layer on Ragbot | In Progress |
+| [Ragenie Architecture](active/ragenie-architecture/) | Strategic architecture - Ragenie as extension layer on Ragbot | In Progress |
 
 ## Structure
 
@@ -32,7 +32,7 @@ projects/
 
 | Project | Location | Relationship |
 |---------|----------|--------------|
-| **Ragbot** | [github.com/synthesisengineering/ragbot](https://github.com/synthesisengineering/ragbot) | Core RAG engine that RaGenie extends |
+| **Ragbot** | [github.com/synthesisengineering/ragbot](https://github.com/synthesisengineering/ragbot) | Core RAG engine that Ragenie extends |
 | **AI Knowledge Compiler** | [ragbot/projects/active/ai-knowledge-compiler](https://github.com/synthesisengineering/ragbot/tree/main/projects/active/ai-knowledge-compiler) | Compiles content for both products |
 
 ## Convention

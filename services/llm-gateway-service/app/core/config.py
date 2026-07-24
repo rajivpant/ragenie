@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
 
     # Application
-    APP_NAME: str = "RaGenie LLM Gateway Service"
+    APP_NAME: str = "Ragenie LLM Gateway Service"
     VERSION: str = "1.0.0"
     DEBUG: bool = True
     ENVIRONMENT: str = "development"

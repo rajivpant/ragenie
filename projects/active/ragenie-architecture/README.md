@@ -1,4 +1,4 @@
-# RaGenie Architecture
+# Ragenie Architecture
 
 **Status:** In Progress
 **Created:** 2025-12-14
@@ -6,11 +6,11 @@
 
 ## Overview
 
-RaGenie is an agentic AI system that builds ON TOP of Ragbot, extending it with advanced orchestration, multi-agent workflows, and modern UI capabilities. This project documents the strategic architecture and the relationship between the two products.
+Ragenie is an agentic AI system that builds ON TOP of Ragbot, extending it with advanced orchestration, multi-agent workflows, and modern UI capabilities. This project documents the strategic architecture and the relationship between the two products.
 
 ## Problem Statement
 
-Ragbot provides excellent RAG-enabled assistant capabilities via CLI, Web UI, and API. RaGenie extends Ragbot with:
+Ragbot provides excellent RAG-enabled assistant capabilities via CLI, Web UI, and API. Ragenie extends Ragbot with:
 
 - **Agentic capabilities** — Autonomous task execution and tool use
 - **Multi-agent orchestration** — Coordinating multiple AI agents for complex workflows
@@ -18,11 +18,11 @@ Ragbot provides excellent RAG-enabled assistant capabilities via CLI, Web UI, an
 
 ## Solution
 
-Build RaGenie as an **extension layer** on top of Ragbot, not a replacement:
+Build Ragenie as an **extension layer** on top of Ragbot, not a replacement:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                        RaGenie                               │
+│                        Ragenie                               │
 │  ┌─────────────────────────────────────────────────────────┐ │
 │  │  Agentic Layer                                          │ │
 │  │  - Multi-agent orchestration                            │ │
@@ -74,11 +74,11 @@ Build RaGenie as an **extension layer** on top of Ragbot, not a replacement:
 | [current-status.md](current-status.md) | Development progress and what's working |
 | [langgraph-integration.md](langgraph-integration.md) | LangGraph agentic workflow implementation |
 | [testing-guide.md](testing-guide.md) | How to test the backend services |
-| [brand-guidelines.md](brand-guidelines.md) | RaGenie naming and branding |
+| [brand-guidelines.md](brand-guidelines.md) | Ragenie naming and branding |
 
 ## Quick Links
 
-- **RaGenie Source Code:** `/Users/rajivpant/projects/my-projects/ragenie/`
+- **Ragenie Source Code:** `/Users/rajivpant/projects/my-projects/ragenie/`
 - **Ragbot (core):** [github.com/synthesisengineering/ragbot](https://github.com/synthesisengineering/ragbot)
 - **AI Knowledge Repos:** `/Users/rajivpant/projects/my-projects/ai-knowledge/`
 
@@ -92,7 +92,7 @@ Build RaGenie as an **extension layer** on top of Ragbot, not a replacement:
 | LangGraph workflows | Complete | Three-node StateGraph with streaming SSE |
 | Project documentation | In Progress | Consolidating into projects/ structure |
 | **Strategic pivot** | In Progress | Redefining as extension layer on Ragbot |
-| Ragbot integration | Not Started | Connect RaGenie to Ragbot core |
+| Ragbot integration | Not Started | Connect Ragenie to Ragbot core |
 | Frontend | Not Started | React/Next.js UI |
 
 ## Key Decisions
@@ -101,8 +101,8 @@ Build RaGenie as an **extension layer** on top of Ragbot, not a replacement:
 
 1. **Ragbot works well** — The CLI and Web UI serve their purpose effectively
 2. **Avoid duplication** — Ragbot's RAG engine, LLM clients, and persona handling are mature
-3. **Incremental value** — Users can adopt RaGenie features without abandoning Ragbot
-4. **Separation of concerns** — Ragbot = RAG engine, RaGenie = agentic orchestration
+3. **Incremental value** — Users can adopt Ragenie features without abandoning Ragbot
+4. **Separation of concerns** — Ragbot = RAG engine, Ragenie = agentic orchestration
 
 ### Why FastAPI Backend?
 
@@ -111,7 +111,7 @@ Build RaGenie as an **extension layer** on top of Ragbot, not a replacement:
 3. **Production-ready** — Easy deployment, monitoring, scaling
 4. **Type safety** — Pydantic schemas for request/response validation
 
-### Why React/Next.js Frontend for RaGenie?
+### Why React/Next.js Frontend for Ragenie?
 
 1. **Advanced agentic UX** — Multi-agent workflow visualization, real-time updates
 2. **Voice UI ready** — Web Speech API integration

@@ -1,11 +1,11 @@
-# RaGenie Resources
+# Ragenie Resources
 
-This folder contains utilities, guides, and templates that ship with RaGenie.
+This folder contains utilities, guides, and templates that ship with Ragenie.
 
 ## Purpose
 
 These resources are:
-- ✅ Part of the open-source RaGenie distribution
+- ✅ Part of the open-source Ragenie distribution
 - ✅ Available to all users out of the box
 - ✅ Usable standalone in other projects
 - ✅ Publicly accessible on GitHub
@@ -24,7 +24,7 @@ These are NOT:
 
 ## Usage in Containers
 
-These resources are available at `/data/resources/` in all RaGenie service containers.
+These resources are available at `/data/resources/` in all Ragenie service containers.
 
 Example: A user can reference these resources in their custom instructions:
 ```
@@ -34,7 +34,7 @@ Example: A user can reference these resources in their custom instructions:
 
 ## Usage Standalone
 
-These resources can be copied and used in other projects without the rest of RaGenie:
+These resources can be copied and used in other projects without the rest of Ragenie:
 
 ```bash
 # Copy a guide to your project
@@ -52,7 +52,7 @@ cp resources/workflows/*.json /your-project/workflows/
 - Location: Part of ragenie repository (`./resources/`)
 - Access: Available at `/data/resources/` in containers
 - Indexing: NO - Static reference material
-- Distribution: Ships with every RaGenie installation
+- Distribution: Ships with every Ragenie installation
 - Git: Public repo
 
 **User Data** (separate):
