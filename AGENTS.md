@@ -1,4 +1,4 @@
-# Claude Code Context: ragenie
+# Repository Context: ragenie
 
 ## Repository: ragenie (PUBLIC)
 
