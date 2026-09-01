@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # PostgreSQL Database
   postgres:
@@ -165,7 +163,7 @@ services:
     volumes:
       # User's PRIVATE data (mounted at runtime)
       - type: bind
-        source: ${RAGBOT_DATA_PATH:-/Users/rajivpant/ragbot-data}
+        source: ${RAGBOT_DATA_PATH:-./.ragenie-data}
         target: /data/user-data
         read_only: true
       # Product RESOURCES (part of repo)
@@ -258,7 +256,7 @@ services:
     volumes:
       # User's PRIVATE data (source of truth for file watcher)
       - type: bind
-        source: ${RAGBOT_DATA_PATH:-/Users/rajivpant/ragbot-data}
+        source: ${RAGBOT_DATA_PATH:-./.ragenie-data}
         target: /data/user-data
         read_only: true
       - ./services/file-watcher:/app
@@ -298,7 +296,7 @@ services:
     volumes:
       # User's PRIVATE data (for embedding user documents)
       - type: bind
-        source: ${RAGBOT_DATA_PATH:-/Users/rajivpant/ragbot-data}
+        source: ${RAGBOT_DATA_PATH:-./.ragenie-data}
         target: /data/user-data
         read_only: true
       - ./services/embedding-worker:/app

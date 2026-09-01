@@ -7,7 +7,7 @@
 ## 🎉 Major Accomplishments
 
 ### 1. Conversation Service Implementation
-**Location**: [services/conversation-service/](services/conversation-service/)
+**Location**: [services/conversation-service/](../../../services/conversation-service/)
 
 Complete microservice for managing conversations and assembling RAG context:
 
@@ -29,7 +29,7 @@ Complete microservice for managing conversations and assembling RAG context:
 - Error handling with graceful degradation
 
 ### 2. RAG Retrieval Service
-**Location**: [services/conversation-service/app/services/rag_retrieval.py](services/conversation-service/app/services/rag_retrieval.py)
+**Location**: [services/conversation-service/app/services/rag_retrieval.py](../../../services/conversation-service/app/services/rag_retrieval.py)
 
 Semantic search engine for document retrieval:
 
@@ -58,7 +58,7 @@ Generate embeddings for query text (used by Conversation Service)
 - Async embedding generation with `aembed_query()`
 
 ### 4. Database Schema Updates
-**Updated Model**: [shared/models/conversation.py](shared/models/conversation.py)
+**Updated Model**: [shared/models/conversation.py](../../../shared/models/conversation.py)
 
 Added `state` field to `Conversation` model:
 ```python
@@ -185,7 +185,7 @@ GET /conversations/{id}/context?query=...
 ## 🧪 Testing
 
 ### Testing Guide Created
-**File**: [TESTING_GUIDE.md](TESTING_GUIDE.md)
+**File**: [testing-guide.md](../../active/ragenie-architecture/testing-guide.md)
 
 Comprehensive testing documentation covering:
 - Health checks for all services

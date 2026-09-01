@@ -1,52 +1,19 @@
-# Ragenie Guides
+# Ragenie guides
 
-User-facing guides for common tasks and workflows.
+The guides in this directory ship with the first-generation RAG microservices
+implementation as public reference material.
 
-## Writing Guides
+## Writing
 
-Located in `writing/`:
+- [`writing/identifying-ai-assisted-content.md`](writing/identifying-ai-assisted-content.md):
+  a guide to identifying and improving AI-assisted text
 
-- **`Guide_to_Identifying_and_Improving_AI-Assisted_Content.md`**
-  - Comprehensive guide for identifying and improving AI-assisted text
-  - Covers detection techniques, patterns, and improvement strategies
-  - Useful for content review, editing, and quality assurance
+The new [Ragenie product direction](../../docs/product-direction.md) does not
+yet assign these guides a role in the independent harness.
 
-## Usage
+## Contribution rules
 
-These guides are available at `/data/resources/guides/` in Ragenie containers.
-
-You can reference them in:
-- Custom instructions
-- Prompt templates
-- Workflow configurations
-- API calls
-
-Example custom instruction:
-```
-When helping me review content, use the detection techniques described in
-/data/resources/guides/writing/Guide_to_Identifying_and_Improving_AI-Assisted_Content.md
-```
-
-## Future Guides
-
-Planned categories:
-- `research/` - Research methodologies and techniques
-- `analysis/` - Data analysis and interpretation guides
-- `communication/` - Communication frameworks and templates
-
-## Contributing
-
-To add a new guide:
-
-1. Place the markdown file in the appropriate category folder
-2. Use descriptive, readable filenames with underscores
-3. Update this README with a brief description
-4. Ensure content is suitable for public distribution
-5. Submit a pull request
-
-Guidelines for guides:
-- Use clear, concise language
-- Include practical examples
-- Provide actionable advice
-- Keep formatting consistent (markdown)
-- Add table of contents for longer guides (>1000 words)
+- Use clear, direct language.
+- Include concrete examples that contain no private or identifying material.
+- Keep file names lowercase with hyphens.
+- Update this index when adding or removing a guide.

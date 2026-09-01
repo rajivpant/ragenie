@@ -1,88 +1,75 @@
-# Repository Context: ragenie
+# Repository context: ragenie
 
-## Repository: ragenie (PUBLIC)
+## Repository
 
-This is a **PUBLIC** open source repository. Be careful not to include confidential information.
+Ragenie is a **PUBLIC** open-source repository. Every tracked byte must be
+suitable for unrestricted public distribution. Exclude non-public workspace
+identifiers, personal machine paths, real-party work details, and material
+copied from access-controlled knowledge repositories.
 
-## Product Relationship
+## Product direction
 
-- **Ragbot**: Core RAG-enabled assistant (CLI + Web UI + API). Actively maintained.
-- **Ragenie**: Agentic extension layer that builds ON TOP of Ragbot. Adds multi-agent workflows, advanced orchestration.
-- Both products share AI Knowledge content (ai-knowledge-* repos).
-- Both products will continue to be actively developed.
+Ragenie is becoming a full, independent, synthesis-native AI agent harness.
+The durable project is the architectural center. Conversations, models, tools,
+and interfaces attach to project state rather than owning it.
 
-## Architecture
+The synthesis work system is native to Ragenie, while the underlying contract
+remains open and vendor-neutral. Ragenie is a reference implementation, never a
+privileged dependency. The public source of truth is
+`docs/product-direction.md`.
 
-Ragenie is a microservices-based platform:
+## Current implementation boundary
 
-- **FastAPI backend** - REST API services
-- **React frontend** - Modern web UI
-- **Qdrant** - Vector database for RAG
-- **PostgreSQL** - Metadata and user management
-- **Redis** - Caching layer
+The code currently tracked in this repository is an earlier RAG microservices
+implementation. It includes seven FastAPI service directories plus PostgreSQL,
+Redis, Qdrant, MinIO, Nginx, Prometheus, Grafana, and Docker Compose support.
 
-## Data Location
+Documents under `projects/active/ragenie-architecture/` describe that
+first-generation implementation. They are historical architecture records, not
+the new harness design. Setup guides under `docs/` must label that boundary.
 
-Ragenie reads AI Knowledge content from ai-knowledge-* repos (via AI Knowledge Compiler):
+## Relationship to Ragbot
 
-- **source/instructions/** - Identity/persona files
-- **source/datasets/** - Reference knowledge
-- **compiled/** - LLM-optimized output
+Ragbot is a separate chat-led runtime. Ragenie is no longer defined as an
+extension layer on top of Ragbot. The repositories may share public formats or
+libraries when the new architecture calls for them, but neither product is the
+other's required layer.
 
-## Privacy Guidelines for This Public Repo
+## Public-repository rules
 
-### NEVER include in docs or code
+### Never include
 
-- Client/employer company names (use "example-company" instead)
-- Workspace names that reveal client relationships
-- Any content from ai-knowledge repos that could identify clients
+- Client, employer, or colleague names
+- Identifying descriptions of private organizations or work
+- Personal absolute paths or usernames
+- Private repository names or private configuration
+- Credentials, tokens, private endpoints, or operational details
 
-### Safe to use
+### Safe examples
 
-- "rajiv" workspace name (owner's personal workspace)
-- Open source project workspace names (e.g., "ragenie")
-- Generic example names: "example-company", "acme-corp", "test-workspace"
+- `example-user`, `example-company`, `example-workspace`
+- Repository-relative paths
+- Public synthesis project names and public URLs
 
-### Example transformations
+## Architecture and implementation rules
 
-When writing documentation or examples:
+- Treat `docs/product-direction.md` as direction, not as proof that a capability
+  exists.
+- Label planned, implemented, and verified behavior separately.
+- Do not preserve an earlier architecture solely for compatibility. Reuse must
+  earn its place in the harness design.
+- Keep the work-system contract implementable without Ragenie-specific state.
+- A completion claim includes its evidence.
 
-- Use "example-company" or "client-workspace" instead of actual client names
-- Use generic business scenarios instead of actual client project details
+## Current development environment
 
-## Key Concepts
+- Docker Compose
+- FastAPI services
+- PostgreSQL, Redis, Qdrant, and MinIO
+- No tracked frontend source at the current commit
 
-### Workspace System
+## Git operations
 
-- `user_workspace` config points to the user's identity workspace (e.g., "rajiv")
-- Workspace folder names are usernames - do NOT rename to generic names
-- Workspaces inherit from the user workspace
-
-### Multi-User Design
-
-- System supports multiple users with separate identity workspaces
-- Different workspaces may come from different git repos
-- User workspaces are private; some workspaces may be shared team repos
-
-### RAG Architecture
-
-- Uses Qdrant for vector storage
-- Separate collections per workspace with query-time merging
-- Supports workspace inheritance in retrieval
-
-## Versioning
-
-- Version is tracked in `VERSION` file (semantic versioning: MAJOR.MINOR.PATCH)
-- **Maintain version numbers**: When making releases, increment the version appropriately:
-  - PATCH (0.0.X): Bug fixes, minor changes
-  - MINOR (0.X.0): New features, backwards compatible
-  - MAJOR (X.0.0): Breaking changes
-- Create git tags for releases: `git tag -a vX.Y.Z -m "Release vX.Y.Z"`
-- Push tags: `git push origin vX.Y.Z`
-
-## Development Notes
-
-- Docker-based development environment
-- FastAPI for backend services
-- React/TypeScript for frontend
-- Qdrant for vector search (shared technology choice with Ragbot's planned RAG)
+Run Git commands from this repository's root. Use a feature branch for
+non-trivial changes. Commit messages in this public repository remain generic.
+Never bypass hooks with `--no-verify`.

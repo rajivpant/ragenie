@@ -1,123 +1,56 @@
-# Ragenie Brand Guidelines
+# Ragenie naming and public language
 
-## Brand Name
+## Name
 
-**Official Name:** Ragenie (capital R, sentence case)
+Use **Ragenie** in prose and branding. Use `ragenie` for repository names,
+commands, packages, configuration keys, and other technical identifiers.
 
-Renamed from the earlier "RaGenie" (capital R, capital G) form on 2026-05-13. All branding, documentation, and prose must use the sentence-case form going forward.
+Do not use the retired capital-G spelling, all caps, or a hyphenated form.
 
-### Usage by Context
+## Product description
 
-| Context | Format | Example |
-|---------|--------|---------|
-| **Primary Branding** | Ragenie | "Welcome to Ragenie" |
-| **Marketing Materials** | Ragenie | "Ragenie - Agentic AI Platform" |
-| **Documentation** | Ragenie | "Ragenie is a powerful agentic system" |
-| **Social Media** | Ragenie or #ragenie | "Just deployed my @Ragenie instance!" |
-| **File names** | ragenie | `ragenie.py`, `ragenie-config.yaml` |
-| **Folder names** | ragenie | `/ragenie`, `ragenie/services` |
-| **Package names** | ragenie | `pip install ragenie` |
-| **URLs** | ragenie | ragenie.ai (ragenie.com redirects) |
-| **Commands** | ragenie | `ragenie start`, `./ragenie` |
-| **Code references** | ragenie | `from ragenie import...` |
-| **Database names** | ragenie | `ragenie_production` |
-| **Container names** | ragenie-* | `ragenie-postgres`, `ragenie-auth-service` |
+Ragenie is becoming an independent AI agent harness built around durable work.
+The synthesis work system is native to its product direction, while the work-
+system contract remains open and usable by other harnesses.
 
-### Incorrect Usage
+The earlier description, "an agentic extension layer on top of Ragbot," is no
+longer current. Ragbot is a separate chat-led runtime in the synthesis
+ecosystem.
 
-- RAGENIE (all caps)
-- RAGenie (capital A and G)
-- raGenie (lowercase r, capital G)
-- Ra-Genie (hyphenated)
-- The old capital-G form (deprecated 2026-05-13 — brand prose must use sentence case: capital R only, lowercase everything after)
+## Current-state language
 
-**Always Use:**
-- Ragenie (capital R, sentence case) for prose and branding
-- ragenie (all lowercase for technical contexts)
+Public copy must distinguish three states:
 
-## Brand Story
+- **Current:** the repository contains an earlier RAG microservices
+  implementation.
+- **Planned:** the independent synthesis-native harness described in
+  [the product direction](../../../docs/product-direction.md).
+- **Verified:** behavior demonstrated by a current build, test, or release
+  receipt.
 
-### Name Meaning
+Do not write planned features in the present tense. Do not call the earlier
+microservices implementation the new harness.
 
-**Ragenie** combines:
-- **RAG** = Retrieval Augmented Generation (the core technology)
-- **Genie** = A magical assistant that helps humans
+## Voice
 
-Ragenie is your AI genie for agentic workflows.
-
-### Relationship with Ragbot
-
-Ragenie is an **extension layer** that builds on top of Ragbot:
-
-- **Ragbot** = Core RAG-enabled assistant (CLI + Web UI + API)
-- **Ragenie** = Agentic extension layer (multi-agent workflows, advanced orchestration)
-
-Both products share the same AI Knowledge content and complement each other.
-
-## Taglines and Messaging
-
-### Primary Tagline
-"Agentic AI Platform"
-
-### Alternative Taglines
-- "Multi-Agent Workflows for AI-Powered Tasks"
-- "Orchestrating AI Agents for Complex Work"
-
-### Positioning Statement
-Ragenie extends Ragbot with agentic capabilities - multi-agent orchestration, workflow automation, and advanced tool integration - while leveraging Ragbot's proven RAG engine.
-
-## Tone of Voice
-
-### Brand Personality
-- **Professional** yet approachable
-- **Intelligent** without being pretentious
-- **Helpful** and empowering
-- **Modern** and forward-thinking
-- **Reliable** and trustworthy
-
-### Example Phrases
-Good:
-- "Ragenie adds agentic workflows to your AI stack"
-- "Orchestrate AI agents with Ragenie"
-- "Multi-agent workflows built on Ragbot"
+State what the product does or is intended to do. Let readers judge the work.
+Do not praise the name, the architecture, or its author.
 
 Avoid:
-- "The ultimate supreme AI platform" (too hyperbolic)
-- "AI that will replace humans" (wrong messaging)
 
-## Technical Branding
+- Self-congratulatory modifiers such as "cleverly," "brilliant," or "unique"
+- Brochure claims such as "powerful," "sophisticated," "enterprise-grade," or
+  "production-ready" without current evidence
+- Magical-assistant language based on the product name
+- Claims that Ragenie owns or defines the synthesis work-system contract
+- Provider lists used as a substitute for explaining the product
 
-### Service Names
-- Ragenie Auth Service
-- Ragenie User Service
-- Ragenie Document Service
-- Ragenie Conversation Service
-- Ragenie LLM Gateway Service
+Prefer concrete language about durable projects, evidence, human decisions,
+tool execution, model boundaries, and verified current state.
 
-### Docker Containers
-Use lowercase with hyphen separator:
-- `ragenie-postgres`
-- `ragenie-redis`
-- `ragenie-auth-service`
-- `ragenie-frontend`
+## Primary links
 
-### File Naming
-Use lowercase with hyphen separator:
-- `ragenie-config.yaml`
-- `ragenie.log`
-
-### Code Constants
-```python
-APP_NAME = "Ragenie Auth Service"
-PROJECT_NAME = "Ragenie"
-BRAND_NAME = "Ragenie"
-```
-
-## Quick Reference
-
-**Official Name:** Ragenie
-**Pronunciation:** "RAJ-ee-nee" or "RAY-jee-nee"
-**Tagline:** Agentic AI Platform
-**Domains:** ragenie.ai (ragenie.com redirects)
-**Relationship:** Extension layer on Ragbot
-**Maintainer:** Rajiv Pant
+- Product direction: <https://github.com/synthesisengineering/ragenie/blob/main/docs/product-direction.md>
+- Website: <https://ragenie.ai/>
+- Synthesis Work: <https://synthesiswork.org/>
+- Manifesto: <https://synthesiswork.org/manifesto/>

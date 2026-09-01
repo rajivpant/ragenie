@@ -1,5 +1,11 @@
 # Ragenie Testing Guide
 
+> [!CAUTION]
+> This guide documents testing for the earlier RAG microservices
+> implementation. It is not an acceptance suite for the planned
+> synthesis-native harness. See the
+> [product direction](../../../docs/product-direction.md).
+
 ## Overview
 
 This guide provides step-by-step instructions for testing Ragenie's backend services.
@@ -10,13 +16,13 @@ This guide provides step-by-step instructions for testing Ragenie's backend serv
 
 1. **Environment Setup**
    ```bash
-   cd /Users/rajivpant/projects/my-projects/ragenie
+   cd /path/to/ragenie
    cp .env.example .env
    # Edit .env and add your OPENAI_API_KEY
    ```
 
 2. **ragbot-data Location**
-   - Ensure ragbot-data exists at `/Users/rajivpant/ragbot-data`
+   - Ensure the test-data directory configured in `RAGBOT_DATA_PATH` exists
    - Contains markdown files in `custom-instructions/` and `curated-datasets/`
 
 ---
@@ -342,7 +348,7 @@ docker-compose restart
 docker-compose logs -f file-watcher
 
 # Manually edit a file in ragbot-data
-echo "test change" >> /Users/rajivpant/ragbot-data/custom-instructions/overview.md
+echo "test change" >> /path/to/test-data/custom-instructions/overview.md
 
 # Should see "file_changed" in logs within 5 seconds
 ```
@@ -356,7 +362,7 @@ This tests the complete flow from file to RAG response:
 ```bash
 # 1. Add a new file to ragbot-data
 echo "# Test Document\n\nThis is a test for Ragenie's RAG capabilities." > \
-  /Users/rajivpant/ragbot-data/curated-datasets/test-document.md
+  /path/to/test-data/curated-datasets/test-document.md
 
 # 2. Wait for file detection (5 seconds)
 sleep 6

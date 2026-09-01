@@ -1,9 +1,15 @@
-# Ragenie - Current Development Status
+# First-generation implementation status
+
+> [!CAUTION]
+> This is a historical implementation snapshot of the earlier RAG
+> microservices architecture. It is not current product status for the planned
+> synthesis-native harness. See the
+> [product direction](../../../docs/product-direction.md).
 
 ## Last Updated: 2025-11-24 (Session 4 - Product Resources Architecture)
 
-> **IMPORTANT**: This file contains the current state of Ragenie development.
-> If this chat context is lost, READ THIS FILE FIRST to understand where we are.
+> This file preserves the state reported by the original implementation
+> session. Claims below have not been re-verified for the new product direction.
 
 ---
 
@@ -91,7 +97,7 @@ resources/
 - **Purpose**: User's personal documents, notes, private content
 - **Indexing**: YES - monitored by file-watcher and embedded for RAG
 - **Distribution**: NOT shipped with Ragenie (private data)
-- **Example**: `/Users/rajivpant/ragbot-data`
+- **Example**: `/path/to/test-data`
 
 ### Volume Mounts Configuration
 
@@ -102,7 +108,7 @@ services:
     volumes:
       # User's PRIVATE data
       - type: bind
-        source: ${RAGBOT_DATA_PATH:-/Users/rajivpant/ragbot-data}
+        source: ${RAGBOT_DATA_PATH:-./.ragenie-data}
         target: /data/user-data
         read_only: true
       # Product RESOURCES
@@ -159,11 +165,11 @@ ragenie/
 └── .env.example              ✅ Updated with data directory documentation (Session 4)
 
 External:
-├── /Users/rajivpant/ragbot-data/          (USER DATA - SOURCE OF TRUTH)
+├── /path/to/test-data/                    (USER DATA - SOURCE OF TRUTH)
 │   ├── .claudeignore                      ✅ Created (protects sensitive data)
 │   └── RAGENIE_INTEGRATION.md             ✅ Created (600+ line architecture doc)
 │
-└── /Users/rajivpant/projects/my-projects/ragbot/resources/  ✅ NEW (Session 4)
+└── ../ragbot/resources/                    (PRODUCT RESOURCES IN SIBLING REPO)
     └── (Same structure as ragenie/resources/ for v1 compatibility)
 ```
 
@@ -320,12 +326,12 @@ Stream response to frontend
 ### Prerequisites
 1. Copy `.env.example` to `.env`
 2. Add OpenAI API key: `OPENAI_API_KEY=sk-...`
-3. Ensure user data directory exists (default: `/Users/rajivpant/ragbot-data`)
+3. Ensure the user data directory configured in `RAGBOT_DATA_PATH` exists
 4. Product resources are in `./resources/` (ships with Ragenie)
 
 ### Start Services
 ```bash
-cd /Users/rajivpant/projects/my-projects/ragenie
+cd /path/to/ragenie
 
 # Start all services
 docker-compose up -d
@@ -505,7 +511,7 @@ GET "doc:curated-datasets/client-c/overview.md"
 
 ## 💡 Key Design Decisions Made
 
-1. **Qdrant over pgvector**: Better performance, LangGraph support, production-ready
+1. **Qdrant over pgvector**: Dedicated vector storage with LangGraph integration
 2. **Polling Observer**: More reliable in Docker than inotify
 3. **Read-only mounts**: Guarantees ragbot-data safety
 4. **UUID primary keys**: Better for distributed systems
@@ -552,7 +558,7 @@ GET "doc:curated-datasets/client-c/overview.md"
 ### Quick Start to Continue
 ```bash
 # 1. Pull latest code
-cd /Users/rajivpant/projects/my-projects/ragenie
+cd /path/to/ragenie
 git pull
 
 # 2. Review current status

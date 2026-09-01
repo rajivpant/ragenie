@@ -1,143 +1,104 @@
-# Ragenie - Agentic AI Platform
+# Ragenie
 
-Ragenie is an agentic AI system that extends [Ragbot](https://github.com/synthesisengineering/ragbot) with advanced orchestration, multi-agent workflows, and a modern web UI.
+Ragenie is becoming an independent AI agent harness built around durable work.
+Its architectural center is the project: memory, decisions, evidence, policy,
+coordination, and handoffs survive individual conversations and model changes.
 
-## Relationship with Ragbot
+The synthesis work system will be native to Ragenie, but never dependent on it.
+The underlying contract remains open and vendor-neutral so other harnesses can
+implement the same work system without privileged access to this codebase.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                        Ragenie                               │
-│  - Agentic workflows (LangGraph)                            │
-│  - Multi-agent orchestration                                │
-│  - FastAPI backend + React/Next.js frontend                 │
-│  - Production-ready microservices                           │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                        Ragbot                                │
-│  - Core RAG engine                                          │
-│  - LLM integration (OpenAI, Anthropic, Google)              │
-│  - CLI + Web UI + API                                       │
-│  - AI Knowledge content compilation                         │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    AI Knowledge Repos                        │
-│  ai-knowledge-ragbot (public templates/runbooks)            │
-│  ai-knowledge-rajiv, ai-knowledge-flatiron, etc. (private)  │
-└─────────────────────────────────────────────────────────────┘
-```
+Read the [product direction](docs/product-direction.md) for the vision, mission,
+strategy, staged plan, and boundaries.
 
-**Ragbot** = Core RAG-enabled assistant (CLI + Web UI + API)
-**Ragenie** = Agentic extension layer (multi-agent workflows, advanced orchestration)
+## Current repository state
 
-Both products share the same AI Knowledge content from the ai-knowledge-* repositories.
+> [!IMPORTANT]
+> This repository does not contain a released synthesis-native harness yet. It
+> contains an earlier RAG microservices implementation. The code and its guides
+> remain available while the independent harness architecture is defined and
+> built.
 
-## What Ragenie Adds
+The current implementation includes seven FastAPI service directories:
 
-| Capability | Ragbot | Ragenie |
-|------------|--------|---------|
-| RAG-powered chat | Yes | Yes (via Ragbot) |
-| CLI interface | Yes | No |
-| Web UI | Yes | Yes |
-| REST API | Yes | Yes |
-| Agentic workflows | No | Yes (LangGraph) |
-| Multi-agent orchestration | No | Yes |
+| Service | Responsibility |
+|---------|----------------|
+| Auth | Authentication and tokens |
+| User | Profiles and preferences |
+| Document | Files, metadata, and retrieval support |
+| Conversation | Conversations and RAG context assembly |
+| LLM gateway | Model-provider access |
+| File watcher | Knowledge-file change detection |
+| Embedding worker | Embedding generation and vector indexing |
 
-## Architecture
+Supporting infrastructure includes PostgreSQL, Redis, Qdrant, MinIO, Nginx,
+Prometheus, Grafana, and Docker Compose.
 
-### Backend Services (FastAPI)
+The current docs distinguish between two things:
 
-| Service | Port | Purpose |
-|---------|------|---------|
-| Auth Service | 8001 | JWT authentication, user management |
-| User Service | 8002 | Profile management, preferences |
-| Document Service | 8003 | File storage, embedding generation |
-| Conversation Service | 8004 | Chat management, RAG context assembly |
-| LLM Gateway | 8005 | Unified LLM interface, cost tracking |
-| File Watcher | - | Monitors AI Knowledge content |
-| Embedding Worker | - | Generates vector embeddings |
+- [Product direction](docs/product-direction.md): what Ragenie is becoming
+- [Backend quick start](docs/quickstart.md): how to inspect the earlier
+  microservices implementation
 
-### Infrastructure
+## Why the direction changed
 
-- **PostgreSQL** - Primary database
-- **Redis** - Caching, message queue
-- **Qdrant** - Vector database for RAG
-- **Nginx** - API gateway
-- **Prometheus/Grafana** - Monitoring
+The earlier architecture treated Ragenie as an agentic extension to
+[Ragbot](https://github.com/synthesisengineering/ragbot). The new direction is
+larger and independent: Ragenie is a harness in its own right, with the
+[synthesis work system](https://synthesiswork.org/) built into its runtime.
 
-### Current Status
+Ragbot remains a separate, chat-led runtime in the same ecosystem. The projects
+can share formats, libraries, and lessons when doing so produces a clear result,
+but neither product is the other's architectural layer.
 
-| Component | Status |
-|-----------|--------|
-| Backend services | Complete |
-| RAG pipeline (Qdrant) | Complete |
-| LangGraph workflows | Complete |
-| Streaming SSE | Complete |
-| React frontend | Not started |
-| Ragbot integration | Not started |
+## Current backend quick start
 
-## Getting Started
+The commands below start only the tracked backend services. The Docker Compose
+file contains a frontend definition, but no frontend source is tracked at the
+current commit.
 
 ### Prerequisites
 
-- Docker and Docker Compose
-- OpenAI API key (for embeddings)
-- Optionally: Anthropic, Google API keys
+- Docker with the Compose plugin
+- An API key for the embedding provider used by the current implementation
 
-### Quick Start
+### Start
 
 ```bash
-# Clone and setup
-cd ragenie
 cp .env.example .env
-# Edit .env with your API keys
+mkdir -p .ragenie-data
+# Add the required API key to .env.
 
-# Start all services
-docker-compose up -d
+docker compose up -d \
+  postgres redis minio qdrant \
+  auth-service user-service document-service conversation-service \
+  llm-gateway-service file-watcher embedding-worker \
+  prometheus grafana
 
-# Run database migrations
-docker-compose exec auth-service alembic upgrade head
-
-# Check status
-docker-compose ps
+docker compose exec auth-service alembic upgrade head
+docker compose ps
 ```
 
-### API Documentation
+The service APIs are available on ports 8001 through 8005. See the
+[backend quick start](docs/quickstart.md) and
+[quick reference](docs/quick-reference.md) for the current implementation.
 
-Each service provides interactive docs:
+## Documentation
 
-- Auth: http://localhost:8001/docs
-- User: http://localhost:8002/docs
-- Document: http://localhost:8003/docs
-- Conversation: http://localhost:8004/docs
-- LLM Gateway: http://localhost:8005/docs
+- [Product direction](docs/product-direction.md)
+- [Current backend quick start](docs/quickstart.md)
+- [Current backend quick reference](docs/quick-reference.md)
+- [Current backend testing guide](docs/quickstart-testing.md)
+- [First-generation architecture record](projects/active/ragenie-architecture/README.md)
 
-## Project Documentation
+## Related work
 
-See [projects/](projects/) for detailed architecture and development docs:
-
-- [Architecture Overview](projects/active/ragenie-architecture/)
-- [LangGraph Integration](projects/active/ragenie-architecture/langgraph-integration.md)
-- [Testing Guide](projects/active/ragenie-architecture/testing-guide.md)
-
-## Development
-
-Ragenie is built using **Synthesis Engineering**—systematically integrating human expertise with AI capabilities. Learn more:
-
-- [The Professional Practice](https://rajiv.com/blog/2025/11/09/synthesis-engineering-the-professional-practice-emerging-in-ai-assisted-development/)
-- [Technical Implementation](https://rajiv.com/blog/2025/11/09/synthesis-engineering-with-claude-code-technical-implementation-and-workflows/)
-
-## Related Repositories
-
-| Repository | Purpose |
-|------------|---------|
-| [ragbot](https://github.com/synthesisengineering/ragbot) | Core RAG engine (Ragenie extends this) |
-| [ai-knowledge-ragbot](https://github.com/rajivpant/ai-knowledge-ragbot) | Open-source templates, runbooks, guides |
-| ai-knowledge-* (private) | Personal/workspace AI Knowledge repos |
+- [Ragenie website](https://ragenie.ai/)
+- [The Synthesis Manifesto](https://synthesiswork.org/manifesto/)
+- [The synthesis work system](https://synthesiswork.org/)
+- [Ragbot](https://github.com/synthesisengineering/ragbot)
+- [Synthesis Coding](https://synthesiscoding.org/)
 
 ## License
 
-Same as Ragbot
+[MIT](LICENSE.md)

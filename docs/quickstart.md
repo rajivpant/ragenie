@@ -1,245 +1,90 @@
-## Ragenie - Quick Start Guide
+# Current backend quick start
 
-This guide will help you get Ragenie up and running in minutes.
+> [!IMPORTANT]
+> This guide starts the earlier RAG microservices implementation in the
+> repository. It does not install the synthesis-native harness described in
+> the [product direction](product-direction.md). No harness release exists in
+> this repository yet.
 
-### Prerequisites
+The current repository tracks backend services and supporting infrastructure.
+It does not track the frontend source referenced by the Docker Compose file, so
+the command below names the backend services explicitly.
 
-- Docker Desktop installed and running
-- At least one LLM API key (OpenAI, Anthropic, or Google)
+## Prerequisites
 
-### Step 1: Setup Environment
+- Docker with the Compose plugin
+- An API key for the embedding provider used by this implementation
+
+## 1. Configure the environment
 
 ```bash
-cd ragenie
 cp .env.example .env
+mkdir -p .ragenie-data
 ```
 
-Edit `.env` and add your API keys:
+Open `.env` and set `OPENAI_API_KEY`. The current embedding worker requires it.
+The other provider keys are optional for model-gateway testing.
+
+The example file points `RAGBOT_DATA_PATH` at `.ragenie-data`, which is ignored
+by Git. Put only test documents there unless you have reviewed the current
+implementation's storage and provider behavior for your use case.
+
+## 2. Start the tracked backend
 
 ```bash
-OPENAI_API_KEY=sk-your-key-here
-ANTHROPIC_API_KEY=sk-ant-your-key-here
-GEMINI_API_KEY=your-key-here
+docker compose up -d \
+  postgres redis minio qdrant \
+  auth-service user-service document-service conversation-service \
+  llm-gateway-service file-watcher embedding-worker \
+  prometheus grafana
 ```
 
-### Step 2: Start the Services
+## 3. Run database migrations
 
 ```bash
-# Start all services
-docker-compose up -d
-
-# Wait for services to be healthy (about 30 seconds)
-docker-compose ps
+docker compose exec auth-service alembic upgrade head
 ```
 
-### Step 3: Initialize Database
+## 4. Inspect the services
 
 ```bash
-# Run database migrations
-docker-compose exec auth-service alembic upgrade head
-
-# Seed initial data (LLM providers and models)
-docker-compose exec llm-gateway-service python -m app.utils.seed_data
+docker compose ps
+curl http://localhost:8001/health
+curl http://localhost:8002/health
+curl http://localhost:8003/health
+curl http://localhost:8004/health
+curl http://localhost:8005/health
 ```
 
-### Step 4: Access the Application
+Interactive API docs:
 
-Open your browser and navigate to:
+- Auth: <http://localhost:8001/docs>
+- User: <http://localhost:8002/docs>
+- Document: <http://localhost:8003/docs>
+- Conversation: <http://localhost:8004/docs>
+- LLM gateway: <http://localhost:8005/docs>
 
-**Frontend Application:** http://localhost:3000
+Supporting services:
 
-**API Documentation:**
-- Auth Service: http://localhost:8001/docs
-- User Service: http://localhost:8002/docs
-- Document Service: http://localhost:8003/docs
-- Conversation Service: http://localhost:8004/docs
-- LLM Gateway: http://localhost:8005/docs
+- Qdrant: <http://localhost:6333/dashboard>
+- Grafana: <http://localhost:3001>
+- Prometheus: <http://localhost:9090>
+- MinIO: <http://localhost:9001>
 
-**Monitoring:**
-- Grafana: http://localhost:3001 (admin/admin)
-- Prometheus: http://localhost:9090
-- MinIO Console: http://localhost:9001 (minioadmin/minioadmin123)
+The values in `.env.example` are development defaults. Do not expose this stack
+to a network or use it with sensitive material without changing the passwords,
+reviewing authentication, and verifying the data path.
 
-### Step 5: Create Your First User
-
-**Option A: Via Frontend**
-1. Go to http://localhost:3000
-2. Click "Register"
-3. Fill in your details
-4. Login with your credentials
-
-**Option B: Via API**
+## 5. Stop the services
 
 ```bash
-# Register a new user
-curl -X POST http://localhost/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{
-    "email": "your@email.com",
-    "username": "yourusername",
-    "password": "yourpassword123"
-  }'
-
-# Login
-curl -X POST http://localhost/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{
-    "username": "yourusername",
-    "password": "yourpassword123"
-  }'
+docker compose down
 ```
 
-### Step 6: Create a Profile
+Add `--volumes` only when you intend to erase the local service data.
 
-```bash
-# Get your access token from login response, then:
-curl -X POST http://localhost/api/users/profiles \
-  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "My First Profile",
-    "description": "Personal assistant profile",
-    "settings": {
-      "default_model": "gpt-4",
-      "temperature": 0.7,
-      "max_tokens": 4096
-    }
-  }'
-```
+## More detail
 
-### Step 7: Upload Documents
-
-```bash
-# Upload a custom instruction file
-curl -X POST http://localhost/api/documents/upload \
-  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
-  -F "file=@/path/to/your/instructions.md" \
-  -F "document_type=custom_instructions" \
-  -F "profile_id=1"
-
-# Upload a curated dataset
-curl -X POST http://localhost/api/documents/upload \
-  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
-  -F "file=@/path/to/your/dataset.md" \
-  -F "document_type=curated_datasets" \
-  -F "profile_id=1"
-```
-
-### Step 8: Start a Conversation
-
-```bash
-# Create a conversation
-curl -X POST http://localhost/api/conversations \
-  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "profile_id": 1,
-    "title": "My First Chat"
-  }'
-
-# Send a message
-curl -X POST http://localhost/api/llm/chat \
-  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "conversation_id": 1,
-    "message": "Hello! Tell me about yourself.",
-    "model": "gpt-4",
-    "temperature": 0.7,
-    "max_tokens": 1000
-  }'
-```
-
-### Troubleshooting
-
-**Services won't start:**
-```bash
-# Check logs
-docker-compose logs -f
-
-# Rebuild containers
-docker-compose down
-docker-compose up --build
-```
-
-**Database connection errors:**
-```bash
-# Wait for PostgreSQL to be healthy
-docker-compose ps postgres
-
-# Check if migrations ran
-docker-compose exec auth-service alembic current
-```
-
-**MinIO bucket not created:**
-```bash
-# Create bucket manually
-docker-compose exec minio mc alias set local http://localhost:9000 minioadmin minioadmin123
-docker-compose exec minio mc mb local/ragbot-documents
-```
-
-**Port conflicts:**
-```bash
-# Check what's using the ports
-lsof -i :8001
-lsof -i :3000
-
-# Stop conflicting services or change ports in docker-compose.yml
-```
-
-### Next Steps
-
-1. **Explore the UI**: Navigate through the frontend at http://localhost:3000
-
-2. **Set Up Monitoring**: Configure Grafana dashboards at http://localhost:3001
-
-3. **Read the Docs**: Check out the full README.md for advanced features
-
-### Common Tasks
-
-**View service logs:**
-```bash
-docker-compose logs -f [service-name]
-```
-
-**Restart a service:**
-```bash
-docker-compose restart [service-name]
-```
-
-**Stop all services:**
-```bash
-docker-compose down
-```
-
-**Stop and remove all data:**
-```bash
-docker-compose down -v
-```
-
-**Update dependencies:**
-```bash
-docker-compose build --no-cache
-```
-
-### Development Mode
-
-For live code reloading:
-
-```bash
-# Start in foreground (see all logs)
-docker-compose up
-
-# Services will auto-reload when you edit code
-```
-
-### Getting Help
-
-- Check logs: `docker-compose logs -f`
-- View health: `docker-compose ps`
-- API docs: Visit `/docs` endpoint on each service
-- Issue tracker: [GitHub Issues]
-
----
-
-**You're all set!** Start chatting with your AI assistant with full RAG capabilities.
+- [Quick reference](quick-reference.md)
+- [Backend testing guide](quickstart-testing.md)
+- [First-generation architecture record](../projects/active/ragenie-architecture/README.md)

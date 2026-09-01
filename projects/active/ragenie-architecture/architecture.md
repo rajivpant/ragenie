@@ -1,4 +1,9 @@
-# Ragenie Technical Architecture
+# First-generation Ragenie technical architecture
+
+> [!CAUTION]
+> This document describes the earlier RAG microservices architecture. It is not
+> the independent synthesis-native harness design. See the current
+> [product direction](../../../docs/product-direction.md).
 
 ## Strategic Positioning
 
@@ -91,7 +96,7 @@
 │                               ▼                                              │
 │  ┌─────────────────────────────────────────────────────────────────────┐    │
 │  │                    AI Knowledge Content                              │    │
-│  │  - ai-knowledge-rajiv, ai-knowledge-flatiron, etc.                   │    │
+│  │  - ai-knowledge-example-user, ai-knowledge-example-company          │    │
 │  │  - Compiled via AI Knowledge Compiler                                │    │
 │  └─────────────────────────────────────────────────────────────────────┘    │
 │                                                                              │
@@ -207,7 +212,7 @@ Coordinator Agent:
 Both products consume the same AI Knowledge content:
 
 ```
-ai-knowledge-rajiv/
+ai-knowledge-example-user/
 ├── source/
 │   ├── instructions/
 │   └── datasets/

@@ -1,16 +1,24 @@
-# Ragenie Architecture
+# First-generation Ragenie architecture
 
-**Status:** In Progress
+> [!CAUTION]
+> This record describes the earlier RAG microservices product architecture. It
+> is not the independent synthesis-native harness design. See the current
+> [product direction](../../../docs/product-direction.md).
+
+**Status:** Historical product architecture; current implementation reference
 **Created:** 2025-12-14
-**Last Updated:** 2025-12-14
+**Direction notice added:** 2026-09-01
 
 ## Overview
 
-Ragenie is an agentic AI system that builds ON TOP of Ragbot, extending it with advanced orchestration, multi-agent workflows, and modern UI capabilities. This project documents the strategic architecture and the relationship between the two products.
+This project records the architecture used for the RAG microservices code that
+is currently present in the repository. It treated Ragenie as an extension
+layer on top of Ragbot. That relationship is historical, not the current
+product direction.
 
 ## Problem Statement
 
-Ragbot provides excellent RAG-enabled assistant capabilities via CLI, Web UI, and API. Ragenie extends Ragbot with:
+Ragbot provides RAG-enabled assistant capabilities via CLI, Web UI, and API. This design proposed extending Ragbot with:
 
 - **Agentic capabilities** — Autonomous task execution and tool use
 - **Multi-agent orchestration** — Coordinating multiple AI agents for complex workflows
@@ -62,7 +70,7 @@ Build Ragenie as an **extension layer** on top of Ragbot, not a replacement:
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                    AI Knowledge Repos                        │
-│  ai-knowledge-rajiv, ai-knowledge-flatiron, etc.            │
+│  ai-knowledge-example-user, ai-knowledge-example-company    │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -78,9 +86,9 @@ Build Ragenie as an **extension layer** on top of Ragbot, not a replacement:
 
 ## Quick Links
 
-- **Ragenie Source Code:** `/Users/rajivpant/projects/my-projects/ragenie/`
-- **Ragbot (core):** [github.com/synthesisengineering/ragbot](https://github.com/synthesisengineering/ragbot)
-- **AI Knowledge Repos:** `/Users/rajivpant/projects/my-projects/ai-knowledge/`
+- **Ragenie source code:** this repository
+- **Ragbot:** [github.com/synthesisengineering/ragbot](https://github.com/synthesisengineering/ragbot)
+- **Example knowledge repositories:** sibling `ai-knowledge-*` repositories supplied by the user
 
 ## Current Status
 
@@ -107,8 +115,8 @@ Build Ragenie as an **extension layer** on top of Ragbot, not a replacement:
 ### Why FastAPI Backend?
 
 1. **API-first** — Enables mobile apps, voice UI, third-party integrations
-2. **Async by default** — Better performance for concurrent requests
-3. **Production-ready** — Easy deployment, monitoring, scaling
+2. **Async by default** — Supports concurrent requests without blocking the service loop
+3. **Operationally explicit** — Deployment, monitoring, and scaling remain visible design concerns
 4. **Type safety** — Pydantic schemas for request/response validation
 
 ### Why React/Next.js Frontend for Ragenie?

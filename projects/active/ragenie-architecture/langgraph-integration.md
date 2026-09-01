@@ -1,5 +1,10 @@
 # LangGraph Integration Guide
 
+> [!CAUTION]
+> This guide documents the earlier RAG microservices implementation. It is not
+> the orchestration design for the planned synthesis-native harness. See the
+> [product direction](../../../docs/product-direction.md).
+
 ## Overview
 
 This guide explains how Ragenie uses LangGraph for agentic RAG workflows, including architecture, usage, and customization.
@@ -651,4 +656,4 @@ workflow.add_edge("human_review", END)
 
 ---
 
-*For more information, see [SESSION_3_SUMMARY.md](SESSION_3_SUMMARY.md)*
+*For more information, see the [conversation-service work log](../../work-logs/ragenie-architecture/2025-11-22-conversation-service-complete.md).*

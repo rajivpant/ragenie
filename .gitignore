@@ -73,6 +73,7 @@ infrastructure/monitoring/data/
 *.tmp
 *.temp
 .cache/
+.ragenie-data/
 
 # OS
 Thumbs.db

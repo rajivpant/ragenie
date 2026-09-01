@@ -1,40 +1,33 @@
-# Projects
+# Ragenie project records
 
-Project documentation for Ragenie development.
+The product direction changed in 2026. Ragenie is becoming an independent,
+synthesis-native agent harness rather than an extension layer on top of
+Ragbot.
 
-## Active Projects
+The current public direction lives in
+[docs/product-direction.md](../docs/product-direction.md).
 
-| Project | Description | Status |
-|---------|-------------|--------|
-| [Ragenie Architecture](active/ragenie-architecture/) | Strategic architecture - Ragenie as extension layer on Ragbot | In Progress |
+## Existing architecture record
+
+| Record | What it describes | Status |
+|--------|-------------------|--------|
+| [First-generation Ragenie architecture](active/ragenie-architecture/) | The RAG microservices implementation currently tracked in this repository | Historical product architecture; current implementation reference |
+
+The directory retains its original path so links inside the implementation
+record continue to resolve. Its documents carry a notice that the architecture
+is not the planned harness design.
 
 ## Structure
 
-```
+```text
 projects/
-├── active/                           # Current projects
-│   └── ragenie-architecture/         # Main architecture project
-│       ├── README.md                 # Project overview
-│       ├── architecture.md           # Technical architecture
-│       ├── current-status.md         # What's built and working
-│       ├── langgraph-integration.md  # Agentic workflow guide
-│       ├── testing-guide.md          # Backend testing
-│       └── brand-guidelines.md       # Naming conventions
-├── completed/                        # Finished projects
-├── work-logs/                        # Session logs
-│   └── ragenie-architecture/
-│       └── 2025-11-22-conversation-service-complete.md
-├── lessons-learned/                  # Cross-cutting insights
-└── templates/                        # Reusable templates
+├── active/ragenie-architecture/  # First-generation implementation record
+├── completed/
+├── lessons-learned/
+├── templates/
+└── work-logs/
 ```
 
-## Related Projects (Other Repos)
-
-| Project | Location | Relationship |
-|---------|----------|--------------|
-| **Ragbot** | [github.com/synthesisengineering/ragbot](https://github.com/synthesisengineering/ragbot) | Core RAG engine that Ragenie extends |
-| **AI Knowledge Compiler** | [ragbot/projects/active/ai-knowledge-compiler](https://github.com/synthesisengineering/ragbot/tree/main/projects/active/ai-knowledge-compiler) | Compiles content for both products |
-
-## Convention
-
-See [Project Documentation Convention](https://github.com/synthesisengineering/ragbot/blob/main/docs/conventions/project-documentation.md).
+New harness architecture records belong in a distinct project area after the
+charter defines their scope. Do not overwrite the earlier implementation
+record and make it appear to have described the new system all along.
